@@ -7,7 +7,12 @@ var express = require('express'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
 
-mongoose.connect('mongodb://13.66.58.64:27017/flashCardDB');
+var options = {
+  user: 'elev8incUser',
+  pass: 'ktaSico2016'
+}
+
+mongoose.connect('mongodb://13.85.68.235:27017/SkillsDB', options);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
