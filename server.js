@@ -7,9 +7,9 @@ var express = require('express'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
 
-
-// mongoose.connect('mongodb://13.66.58.64:27017/flashCardDB');
-mongoose.connect('mongodb://localhost:27017/SkillsDB');
+// mongoose.connect('mongodb://13.85.68.235:27017/SkillsDB'); // Prod
+mongoose.connect('mongodb://40.84.158.230:27017/SkillsDB'); // Dev
+// mongoose.connect('mongodb://localhost:27017/SkillsDB');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
