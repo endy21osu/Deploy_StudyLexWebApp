@@ -1,0 +1,30 @@
+<div class="container" ng-controller="LoginCtrl">
+
+  <div class="col-md-4 col-md-offset-4 panel panel-primary">
+    <div class="panel-heading">
+      <h2 class="panel-title text-center">Login</h2>
+    </div>
+
+    <div class="panel-body">
+      <form name="login">
+
+        <div class="form-group text-center">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" placeholder="Enter username" ng-model="account.username">
+        </div>
+
+        <div class="form-group text-center">
+          <label for="pwd">Password</label>
+          <input type="password" class="form-control" id="pwd" placeholder="Enter password" ng-model="account.password">
+        </div>
+
+        <div class="row text-center">
+          <button  ng-click="loginApp()" class="btn btn-success text-center">Submit</button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+</div>

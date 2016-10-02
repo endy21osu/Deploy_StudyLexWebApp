@@ -1,0 +1,30 @@
+<div id='Container' ng-controller="CardsCtrl" class="container">
+	<table class="table">
+	<thead>
+		<tr>
+			<th>Subject</th>
+			<th>Question</th>
+			<th>Hint</th>
+			<th>Answer</th>
+			<th>More</th>
+			<th>Date</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="card in cardSet" >
+
+			<td class = "hand-text" style="vertical-align: middle; font-weight: bold">{{card.subject}}</td>
+			<td class = "hand-text" style="vertical-align: middle">{{card.question}}</td>
+			<td class = "hand-text" style="vertical-align: middle">{{card.hint}}</td>
+			<td class = "hand-text" style="vertical-align: middle">{{card.answer}}</td>
+			<td class = "hand-text" style="vertical-align: middle"> {{card.more}}</td>
+			<td class = "hand-text" style="vertical-align: middle">{{card.time | date:'medium'}}</td>
+			<td style="padding-right: 0px">
+				<button type="button" ng-click="editCard($index)" class="btn btn-primary btn-block">Edit</button>
+				<button type="button" ng-click="deletePost(card._id)" class="btn btn-danger btn-block">Delete</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</div>

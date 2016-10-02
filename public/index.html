@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app="myApp" id='Elev8'>
+    <head>
+        <title>elev8</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+            integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+            crossorigin="anonymous">
+        </link>
+        <link rel="stylesheet" href="app/components/common/app.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    </head>
+
+    <body>
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" >elev8</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a ui-sref="home">Home</a></li>
+              <li><a ng-if="!state" ui-sref="login">Login</a></li>
+              <li><a ng-if="!state" ui-sref="register">Register</a></li>
+              <li><a ng-if="state" ui-sref="cards" style="color: #0aaaf1">Cards</a></li>
+              <li><a ng-if="state" ui-sref="create" style="color: #0aaaf1">Create</a></li>
+              <li><a ng-if="state" ui-sref="logout">Logout</a></li>
+
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="container">
+          <div class="row">
+              <div ui-view></div>
+          </div>
+      </div>
+    </body>
+
+    <footer>
+      <script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
+
+      <link rel="shortcut icon" type="image/png" href="Images/Favicon.png"/>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+            integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
+            crossorigin="anonymous">
+        </script>
+
+        <script type="text/javascript" src="./node_modules/angular/angular.js"></script>
+        <script type="text/javascript" src="./node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+        <script type="text/javascript" src="./app/app.js"></script>
+        <script type="text/javascript" src="./app/components/cards/cards.ctrl.js"></script>
+        <script type="text/javascript" src="./app/components/create/create.ctrl.js"></script>
+        <script type="text/javascript" src="./app/components/login/login.ctrl.js"></script>
+        <script type="text/javascript" src="./app/components/logout/logout.ctrl.js"></script>
+        <script type="text/javascript" src="./app/components/register/register.ctrl.js"></script>
+    </footer>
+</html>

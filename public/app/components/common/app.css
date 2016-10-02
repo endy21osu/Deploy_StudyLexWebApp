@@ -1,0 +1,160 @@
+#Elev8 .table>tbody>tr>td,
+#Elev8 .table>tbody>tr>th,
+#Elev8 .table>tfoot>tr>td,
+#Elev8 .table>tfoot>tr>th,
+#Elev8 .table>thead>tr>td,
+#Elev8 .table>thead>tr>th {
+  padding: 4px 8px;
+
+}
+
+#Elev8 .table>thead>tr>th.action {
+  text-align: center;
+  width: 15%;
+}
+
+#Elev8 .table>tbody>tr>td .action {
+  display: table;
+  margin: 0px auto;
+}
+
+#Elev8 .table>tbody>tr>td .action .btn {
+  margin: 0 2px;
+}
+
+.spinner {
+  text-align: center;
+  display: table;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 960px) {
+  .jumbotron { background: none; }
+}
+
+.jumbotron{
+  background-image: url("resources/jumboPic.jpg");
+  color: white;
+  border-radius: 0px;
+  margin-bottom: 0px;
+}
+
+
+.jumbotron-card{
+  background-color: rgba(56,156,236,1);
+  margin: 2pt;
+  border-radius: 0px;
+  height: 180px;
+  padding-top: 2%;
+
+
+}
+
+
+.jumbotron-card p{
+  font-size: 15px;
+  color:white;
+  font-weight: 300;
+  padding-right: 2%;
+  padding-left: 2%;
+}
+
+.jumbotron-card h3{
+  color:white;
+}
+
+.btn{
+  border-radius: 0px;
+}
+
+.alexa-pane{
+  color: #dadada;
+  background-color: #000000;
+}
+
+.steps-pane{
+  background-color:rgba(56,156,236,1);
+  color:white;
+  padding-bottom: 2%;
+}
+
+.steps-pane p,h4 {
+  text-align: center;
+}
+
+.steps-pane p,a{
+  color: #3f4359;
+  font-size: 16px;
+  font-weight: bold;
+  padding-left: 30pt;
+  padding-right: 30pt;
+}
+
+
+.steps-pane{
+  background-color:rgba(56,156,236,1);
+  color:white;
+  padding-bottom: 2%;
+
+}
+
+.why-pane{
+  color: rgb(47, 113, 183);
+}
+
+
+.base{
+  color: #999cab;
+  background-color: #3f4359;
+  margin-top: 3%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.logo{
+  background-image: url("../home/logo1.png");
+}
+
+.panel , .panel-heading{
+  border-radius: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.form-control{
+  border-radius: 0px;
+}
+
+.paper-texture{
+  border: #171514;
+  background-color: #fff;
+  background-image:
+          linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
+          linear-gradient(#eee .1em, transparent .1em);
+  background-size: 100% 1.2em;
+}
+
+
+table {
+  border-collapse: separate;
+  -webkit-border-vertical-spacing: 5pt;
+
+}
+
+tbody tr{
+  background-color: #e5e5e5;
+}
+
+td {
+  padding-top: .5em;
+  padding-bottom: .5em;
+  vertical-align: middle;
+  color: #0071a8;
+
+}
+
+.hand-text{
+  font-family: "Comic Sans MS" ;
+}
+
+

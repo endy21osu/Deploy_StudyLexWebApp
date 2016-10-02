@@ -1,0 +1,24 @@
+<div class="container" ng-controller="RegisterCtrl">
+
+  <div class="panel panel-primary col-md-4 col-md-offset-4">
+    <div class="panel-heading text-center">
+      <h2 class="panel-title">Register</h2>
+    </div>
+    <div class="panel-body">
+    <form name="register">
+      <div class="form-group text-center">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" placeholder="Enter username" ng-model="newAccount.username">
+      </div>
+      <div class="form-group text-center">
+        <label for="pwd">Password</label>
+        <input type="password" class="form-control" id="pwd" placeholder="Enter password" ng-model="newAccount.password">
+      </div>
+      <div class="row text-center">
+        <button ng-click="registerAccount()" class="btn btn-success">Submit</button>
+      </div>
+    </form>
+    </div>
+  </div>
+
+</div>

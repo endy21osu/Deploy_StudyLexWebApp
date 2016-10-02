@@ -1,0 +1,56 @@
+<div id='Container' ng-controller="CreateCtrl" class="container">
+	<div class="panel panel-primary col-md-6 col-md-offset-3">
+		<div class="panel-heading text-center">
+			<h2 class="panel-title">Create Your Flashcard</h2>
+		</div>
+
+		<div class="panel-body">
+			<form class="form-horizontal" form="newPost" id="inputForm">
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="Subject">Subject:</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="Subject" placeholder="Enter Subject" name="Subject" ng-model="newpost.subject">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="Question">Question:</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="Question" placeholder="Enter Question"  name="question" ng-model="newpost.question">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="Hint">Hint:</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="Hint" placeholder="Enter Hint"  name="hint" ng-model="newpost.hint">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="Answer">Answer:</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="Answer" placeholder="Enter Answer" name="answer" ng-model="newpost.answer">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="More">More Info:</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows= 3 id="More" placeholder="Enter additional information" name="more" ng-model="newpost.more"></textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-12">
+						<button ng-click="submitPost(this)" class="btn btn-success btn-block">Save new card</button>
+					</div>
+					<!--<div class="col-sm-6">-->
+						<!--<button ng-click="updatePost(this)" class="btn btn-default btn-block">Update</button>-->
+					<!--</div>-->
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>
