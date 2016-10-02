@@ -10,8 +10,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
     </head>
 
-    <body>
-      <nav class="navbar navbar-default">
+    <body data-spy="scroll" data-target=".navbar" data-offset="50">
+      <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -20,25 +20,52 @@
               <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" >elev8</a>
+            <a class="navbar-brand" ><img src="app/components/home/logo1.png"></a>
           </div>
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
               <li><a ui-sref="home">Home</a></li>
               <li><a ng-if="!state" ui-sref="login">Login</a></li>
               <li><a ng-if="!state" ui-sref="register">Register</a></li>
-              <li><a ng-if="state" ui-sref="cards" style="color: #0aaaf1">Cards</a></li>
-              <li><a ng-if="state" ui-sref="create" style="color: #0aaaf1">Create</a></li>
+              <li><a ng-if="state" ui-sref="skills">Skills</a></li>
+              <li><a ng-if="state" ui-sref="create">Create</a></li>
               <li><a ng-if="state" ui-sref="logout">Logout</a></li>
 
             </ul>
           </div>
         </div>
       </nav>
-      <div class="container">
+      <div class="container main">
           <div class="row">
               <div ui-view></div>
           </div>
+      </div>
+
+      <div class="container-fluid text-center">
+          <div class="row base">
+
+              <div class="col-md-4" >
+                  <br><img src="app/components/home/logo1.png">
+                  <br> - elev8 Incorporated -
+                  <br>Cincinnati, OH
+              </div>
+
+              <div class="col-md-8">
+                  <div class="row">
+                      <!--<p style="padding-top:2%">Subscribe to receive updates!</p>-->
+                      <!--<form class="form-inline">-->
+                          <!--<input type="email" class="form-control" size="50" style="border-radius: 0px" placeholder="Email Address" required>-->
+                          <!--<button type="button" class="btn btn-default">Subscribe</button>-->
+                      <!--</form>-->
+                  </div>
+
+                  <div class="row" style="padding-top: 2%">
+                      <h5>Questions, Comments, Concerns? Let us know at <br><br> elev8learningco@gmail.com </h5>
+                  </div>
+
+              </div>
+          </div>
+
       </div>
     </body>
 
@@ -54,8 +81,10 @@
         <script type="text/javascript" src="./node_modules/angular/angular.js"></script>
         <script type="text/javascript" src="./node_modules/angular-ui-router/release/angular-ui-router.js"></script>
         <script type="text/javascript" src="./app/app.js"></script>
-        <script type="text/javascript" src="./app/components/cards/cards.ctrl.js"></script>
+        <script type="text/javascript" src="./app/components/skill/skill.ctrl.js"></script>
+        <script type="text/javascript" src="./app/components/skill-view/skill-view.ctrl.js"></script>
         <script type="text/javascript" src="./app/components/create/create.ctrl.js"></script>
+        <script type="text/javascript" src="./app/components/create-view/create-view.ctrl.js"></script>
         <script type="text/javascript" src="./app/components/login/login.ctrl.js"></script>
         <script type="text/javascript" src="./app/components/logout/logout.ctrl.js"></script>
         <script type="text/javascript" src="./app/components/register/register.ctrl.js"></script>
