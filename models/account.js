@@ -8,10 +8,9 @@ var passportLocalMongoose = require('passport-local-mongoose');
 //setting up the schema for the flash cards data model
 
 var Account = new Schema({
-    username: {type: String},
-    password: {type: String},
-    email: {type: String},
-    date: {type: String}
+    username: {type: String, required: true},
+    email: {type: String, required: true},
+    date: {type: String, required: true}
 });
 
 Account.plugin(passportLocalMongoose);

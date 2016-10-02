@@ -16,7 +16,11 @@ router.post('/register', function(req, res) {
     console.log('Register');
     console.log(req.body);
 
-    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+    Account.register(new Account({
+      username : req.body.username,
+      email : req.body.email,
+      date : new Date()
+    }), req.body.password, function(err, account) {
         if (err) {
             return res.render('register', { account : account });
         }

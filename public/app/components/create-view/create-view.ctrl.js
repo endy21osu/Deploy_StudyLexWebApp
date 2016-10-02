@@ -94,7 +94,7 @@
 
 		$http.post("/flashcards", thisApp)
 			.success(function(data) {
-        $state.go('skill', { type: 'learning'});
+        $state.go('skills');
 			})
 			.error(function(){
         console.log("Cannot save flashcard.")
@@ -118,7 +118,7 @@
 
     $http.post("/instructions", thisApp)
       .success(function(data){
-        $state.go('skill', { type: 'instruction'});
+        $state.go('skills');
       })
       .error(function(){
         console.log("Cannot save flashcard.")

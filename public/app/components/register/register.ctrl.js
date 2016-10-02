@@ -13,19 +13,24 @@
     $scope.registerAccount = function(){
   		console.log('this is a test');
   		console.log($scope.newAccount);
+      if($scope.newAccount.password === $scope.newAccount.confirmPassword) {
+        var account = {
+          username:   $scope.newAccount.username,
+          email:      $scope.newAccount.email,
+          password:   $scope.newAccount.password
+        }
+    		$http.post("/account/register", account)
+    		  .success(function(data){
 
-  		$http.post("/account/register", $scope.newAccount)
-  		  .success(function(data){
+            $rootScope.state = true;
+            $state.go('home');
+    			  console.log("post success");
+    			})
+    			.error(function(){
+    				console.log("Registration Failed.");
 
-          $state.go(data.redirect);
-
-  			  console.log("post success");
-
-  			})
-  			.error(function(){
-  				console.log("Registration Failed.");
-
-  			});
+    			});
+      }
   	}
 }
 
