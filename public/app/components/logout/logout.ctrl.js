@@ -8,7 +8,7 @@
 	$scope.logoutApp = function(){
 			console.log($scope.account);
 
-			$http.post("/flashcards/logout", $scope.account)
+			$http.post("/account/logout", $scope.account)
 				.success(function(data){
           $rootScope.state = false;
           $state.go('login');

@@ -14,7 +14,7 @@
   		console.log('this is a test');
   		console.log($scope.newAccount);
 
-  		$http.post("/flashcards/register", $scope.newAccount)
+  		$http.post("/account/register", $scope.newAccount)
   		  .success(function(data){
 
           $state.go(data.redirect);

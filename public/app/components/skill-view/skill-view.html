@@ -1,0 +1,57 @@
+<div id='Container' ng-controller="SkillCtrl" class="container skill">
+	<div ng-if="typeOfLearning">
+		<h2>{{learningApp.appName}}</h2>
+		<h3>{{learningApp.subject}} - {{learningApp.appDescription}}</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Question</th>
+					<th>Hint</th>
+					<th>Answer</th>
+					<th>More</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="card in learningApp.cards" >
+					<td class="hand-text">{{card.question}}</td>
+					<td class="hand-text">{{card.hint}}</td>
+					<td class="hand-text">{{card.answer}}</td>
+					<td class="hand-text"> {{card.more}}</td>
+					<td class="hand-text">{{card.time | date:'medium'}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div ng-if="typeOfInstruction">
+		<h2>{{instructionApp.appName}}</h2>
+		<h3>{{instructionApp.appDescription}}</h3>
+		<table class="table">
+		<thead>
+			<tr>
+				<th>Step</th>
+				<th>Instruction</th>
+				<th>Help Level One</th>
+				<th>Help Level Two</th>
+				<th>Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="step in instructionApp.steps" >
+				<td class="hand-text">{{step.stepnumber}}</td>
+				<td class="hand-text">{{step.instruction}}</td>
+				<td class="hand-text">{{step.help[0]}}</td>
+				<td class="hand-text">{{step.help[1]}}</td>
+				<td class="hand-text">{{instructionApp.date | date:'medium'}}</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+
+	<div class="row" ng-if='!chooseSkill'>
+		<div class="col-sm-2">
+			<button type="button" class="btn" ng-click="selectSkill()">Select Different Skill</button>
+		</div>
+	</div>
+</div>

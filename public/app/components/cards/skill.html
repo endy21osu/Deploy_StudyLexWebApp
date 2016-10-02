@@ -21,7 +21,7 @@
 			<td class = "hand-text" style="vertical-align: middle"> {{card.more}}</td>
 			<td class = "hand-text" style="vertical-align: middle">{{card.time | date:'medium'}}</td>
 			<td style="padding-right: 0px">
-				<button type="button" ng-click="editCard($index)" class="btn btn-primary btn-block">Edit</button>
+				<button type="button" ng-click="editCard(card._id)" class="btn btn-primary btn-block">Edit</button>
 				<button type="button" ng-click="deletePost(card._id)" class="btn btn-danger btn-block">Delete</button>
 			</td>
 		</tr>

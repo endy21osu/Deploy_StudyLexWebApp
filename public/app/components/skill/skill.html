@@ -1,0 +1,67 @@
+<div id='Container' ng-controller="SkillCtrl" class="container skill">
+   <div class="center-block">
+      <h2>Skills</h2>
+      <div class="panel-group" id="accordion">
+         <div class="panel panel-default">
+            <div class="panel-heading">
+               <h4 class="panel-title">
+                  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" target="_self">
+                  Instruction Skills
+                  </a>
+               </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+               <div class="panel-body">
+                  <div class="well" ng-repeat="instApp in skill.instructions track by $index">
+                     <div class="row">
+                        <div class="col-sm-3">
+                           <button type="button" class="btn btn-primary btn-lg" ng-click='viewInstructionSkill(instApp._id)'>{{instApp.appName}}</button>
+                        </div>
+                        <div class="col-sm-9">
+                           <p>{{instApp.appDescription}}</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="panel panel-default">
+            <div class="panel-heading">
+               <h4 class="panel-title">
+                  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" target="_self">
+                  Learning Skills
+                  </a>
+               </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+               <div class="panel-body">
+                 <div class="well" ng-repeat="learningApp in skill.sets track by $index">
+                    <div class="row">
+                       <div class="col-sm-3">
+                          <button type="button" class="btn btn-primary btn-lg" ng-click='viewLearningSkill(learningApp._id)'>{{learningApp.appName}}</button>
+                       </div>
+                       <div class="col-sm-9">
+                          <p>{{learningApp.appDescription}}</p>
+                       </div>
+                    </div>
+                 </div>
+               </div>
+            </div>
+         </div>
+         <div class="panel panel-default">
+            <div class="panel-heading">
+               <h4 class="panel-title">
+                  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" target="_self">
+                  Other Skills
+                  </a>
+               </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+               <div class="panel-body">
+                  More to come...
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
