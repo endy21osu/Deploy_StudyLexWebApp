@@ -2,8 +2,8 @@
 (function() {
   angular.module('myApp').controller('RegisterCtrl', RegisterCtrl)
 
-  RegisterCtrl.$inject = ['$scope', '$http', '$stateParams', '$state'];
-  function RegisterCtrl ($scope, $http, $stateParams, $state) {
+  RegisterCtrl.$inject = ['$scope', '$http', '$stateParams', '$state', '$rootScope'];
+  function RegisterCtrl ($scope, $http, $stateParams, $state, $rootScope) {
     console.log("RegisterCtrl");
 
   	$scope.newAccount= {
