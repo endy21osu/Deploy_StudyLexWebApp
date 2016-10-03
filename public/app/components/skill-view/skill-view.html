@@ -2,9 +2,11 @@
 	<div ng-if="typeOfLearning">
 		<h2>{{learningApp.appName}}</h2>
 		<h3>{{learningApp.subject}} - {{learningApp.appDescription}}</h3>
+		<h4>{{learningApp.help}}</h4>
 		<table class="table">
 			<thead>
 				<tr>
+					<th>Number</th>
 					<th>Question</th>
 					<th>Hint</th>
 					<th>Answer</th>
@@ -14,6 +16,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="card in learningApp.cards" >
+					<td class="hand-text">{{card.questionNumber}}</td>
 					<td class="hand-text">{{card.question}}</td>
 					<td class="hand-text">{{card.hint}}</td>
 					<td class="hand-text">{{card.answer}}</td>
@@ -22,6 +25,16 @@
 				</tr>
 			</tbody>
 		</table>
+
+		<div class="col-sm-2">
+			<button ng-click="editLearning(learningApp._id)" class="btn">Edit Application</button>
+		</div>
+		<div class="col-sm-2">
+			<button ng-click="createSkill(this)" class="btn">Produce Skill</button>
+		</div>
+		<div class="col-sm-2">
+			<button ng-click="deleteLearning(learningApp._id)" class="btn">Delete</button>
+		</div>
 	</div>
 
 	<div ng-if="typeOfInstruction">
@@ -47,11 +60,15 @@
 			</tr>
 		</tbody>
 		</table>
-	</div>
 
-	<div class="row" ng-if='!chooseSkill'>
 		<div class="col-sm-2">
-			<button type="button" class="btn" ng-click="selectSkill()">Select Different Skill</button>
+			<button ng-click="editInstruction(instructionApp._id)" class="btn">Edit Application</button>
+		</div>
+		<div class="col-sm-2">
+			<button ng-click="createSkill(this)" class="btn">Produce Skill</button>
+		</div>
+		<div class="col-sm-2">
+			<button ng-click="deleteInstruction(instructionApp._id)" class="btn">Delete</button>
 		</div>
 	</div>
 </div>

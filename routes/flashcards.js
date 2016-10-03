@@ -32,7 +32,6 @@ var auth = function(req, res, next){
 router.get('/', auth, function (req, res) {
     FlashCardsModel.
       find({learningAppOwner: req.user._id}).
-      limit(10).
       select('appName _id appDescription').
       exec(function (err, list) {
         console.log(err);
@@ -81,7 +80,7 @@ router.post('/', auth, function(req, res){
         if(err){
             res.send("Error ");
         }
-        res.json(data);
+        res.json(data._id);
 
     });
 })
@@ -90,33 +89,33 @@ router.put('/', auth, function(req, res, next){
     console.log("update the cards.");
     console.log(passport);
     var newCard = req.body;
-    FlashCardsModel.findById(newCard._id, function (err, flashCardData) {
+    FlashCardsModel.findById(newCard._id,
+      function (err, flashCardData) {
         if(err){
             res.send("can't find flash card");
 
         }else{
-            flashCardData.subject = newCard.subject;
-            flashCardData.question = newCard.question;
-            flashCardData.hint = newCard.hint;
-            flashCardData.answer = newCard.answer;
-            flashCardData.more = newCard.more;
-            flashCardData.cardOwner =  req.user._id;
-
-            flashCardData.save(function(err,data){
-                if(err){
-                    res.send("Error ");
-                }
-                res.json(data);
-            });
+          flashCardData.appName = newCard.appName;
+          flashCardData.appDescription = newCard.appDescription;
+          flashCardData.help = newCard.help;
+          flashCardData.subject = newCard.subject;
+          flashCardData.date = newCard.date;
+          flashCardData.learningAppOwner = req.user._id;
+          flashCardData.cards = newCard.cards;
+          flashCardData.save(function(err,data){
+              if(err){
+                  res.send("Error ");
+              }
+              res.json(data);
+          });
         }
     });
 })
 
-router.delete('/delete/:id', auth, function(req, res){
+router.delete('/:id', auth, function(req, res){
     console.log("delete the cards.")
     FlashCardsModel.find({
-      _id: req.params.id,
-      cardOwner: req.user._id
+      _id: req.params.id
     }, function(err,fcard){
         if(err){
             res.send("Error 1");

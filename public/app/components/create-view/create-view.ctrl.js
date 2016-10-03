@@ -7,6 +7,8 @@
 
   $scope.addItem = addItem;
   $scope.submitApp = submitApp;
+  $scope.deleteCard = deleteCard;
+  $scope.deleteStep = deleteStep;
 
   $scope.newStep = {
     stepnumber: 1,
@@ -30,7 +32,6 @@
     answer:"",
     more:""
   }
-  // hint
 
   $scope.newLearningApp = {
     date: "",
@@ -42,7 +43,7 @@
     ]
   }
 
-  $scope.editState = !!$stateParams.id;
+  var editState = !!$stateParams.id;
   $scope.typeOfInstruction = $stateParams.type === 'instruction';
   $scope.typeOfLearning = $stateParams.type === 'learning';
 	$scope.card="";
@@ -59,37 +60,34 @@
     }
   }
 
-	function deleteRemoveCard(id) {
-		$http.delete(
-			"/flashcards/delete/"+id
-			).then(
-			function success(){
-				$scope.getBlogPosts()
-			},
-			function error(){
-				console.log("Error. Cannot delete flashcard")
-			});
-	};
-
   function submitApp(form) {
-    if ($scope.typeOfInstruction) {
-      submitInstructionApp(form);
-    } else if ($scope.typeOfLearning) {
-      submitLearningApp(form);
+    if (editState) {
+      if ($scope.typeOfInstruction) {
+        updateInstruction();
+      } else if ($scope.typeOfLearning) {
+        updateLearning();
+      }
+    } else {
+      if ($scope.typeOfInstruction) {
+        submitInstructionApp(form);
+      } else if ($scope.typeOfLearning) {
+        submitLearningApp(form);
+      }
     }
   }
 
   function submitLearningApp(form) {
 		var now = new Date().getTime();
 		var thisApp = angular.copy($scope.newLearningApp);
-    thisApp.time = now;
+    thisApp.date = now;
 
     var l = thisApp.cards.length;
 
     while(l--) {
-        thisApp.cards[l].hints = [];
-        thisApp.cards[l].hints.push(thisApp.cards[l].hint);
-        delete thisApp.cards[l].hint;
+      thisApp.cards[l].questionNumber = thisApp.cards.length - l;
+      thisApp.cards[l].hints = [];
+      thisApp.cards[l].hints.push(thisApp.cards[l].hint);
+      delete thisApp.cards[l].hint;
     }
 
 		$http.post("/flashcards", thisApp)
@@ -118,6 +116,7 @@
 
     $http.post("/instructions", thisApp)
       .success(function(data){
+        console.log(data);
         $state.go('skills');
       })
       .error(function(){
@@ -125,33 +124,61 @@
       });
   };
 
-	// $scope.updateCard = function(){
-	// 		$http.post("/flashcards/update/", $scope.newCard)
-	// 			.success(function(data){
-  //         $state.go('skill', { type: 'learning'});
-	// 				console.log("post success")
-	// 			})
-	// 			.error(function(){
-	// 				console.log("Cannot save flashcard.");
-	// 			});
-	// }
-  //
-  // $scope.updateInstruction = function(){
-  //     $http.post("/instructions/update/", $scope.newCard)
-  //       .success(function(data){
-  //         $state.go('skill', { type: 'instruction'});
-  //         console.log("post success")
-  //       })
-  //       .error(function(){
-  //         console.log("Cannot save flashcard.");
-  //       });
-  // }
+	function updateLearning(){
+    var now = new Date().getTime();
+    var thisApp = angular.copy($scope.newLearningApp);
+    thisApp.date = now;
+
+    var l = thisApp.cards.length;
+
+    while(l--) {
+      thisApp.cards[l].questionNumber = thisApp.cards.length - l;
+      thisApp.cards[l].hints = [];
+      thisApp.cards[l].hints.push(thisApp.cards[l].hint);
+      delete thisApp.cards[l].hint;
+    }
+
+		$http.put("/flashcards", thisApp)
+			.success(function(data){
+        $state.go('skills');
+				console.log("post success")
+			})
+			.error(function(){
+				console.log("Cannot save flashcard.");
+			});
+	}
+
+
+  function updateInstruction(){
+      var now = new Date().getTime();
+      var thisApp = angular.copy($scope.newInstructionApp);
+      thisApp.date = now;
+
+      var l = thisApp.steps.length;
+
+      while(l--) {
+          thisApp.steps[l].help = [];
+          thisApp.steps[l].help.push(thisApp.steps[l].helplevelone);
+          delete thisApp.steps[l].helplevelone;
+          thisApp.steps[l].help.push(angular.copy(thisApp.steps[l].helpleveltwo));
+          delete thisApp.steps[l].helpleveltwo;
+      }
+
+      $http.put("/instructions", thisApp)
+        .success(function(data){
+          $state.go('skills');
+          console.log("post success")
+        })
+        .error(function(){
+          console.log("Cannot save flashcard.");
+        });
+  }
 
   function getLearningApp(id) {
       $http.get("/flashcards/" + id)
         .success(function(data){
           console.log(data);
-          $scope.newCard = data[0];
+          $scope.newLearningApp = data[0];
           console.log("post success");
         })
         .error(function(){
@@ -163,7 +190,7 @@
       $http.get("/instructions/" + id)
         .success(function(data){
           console.log(data);
-          $scope.newInstruction = data[0];
+          $scope.newInstructionApp = data[0];
           console.log("post success");
         })
         .error(function(){
@@ -171,22 +198,25 @@
         });
   }
 
-  // if($scope.editState){
-  //   switch($stateParams.type) {
-  //     case 'instruction': {
-  //       $scope.chooseCreationSkill = false;
-  //       $scope.createInstruction = true;
-  //       $scope.getInstruction($stateParams.id);
-  //       break;
-  //     }
-  //     default: {
-  //       $scope.chooseCreationSkill = false;
-  //       $scope.createLearning = true;
-  //       $scope.getCard($stateParams.id);
-  //     }
-  //   }
-  //
-  // }
+  function deleteCard(index) {
+    $scope.newLearningApp.cards.splice(index, 1);
+  }
+
+  function deleteStep(index) {
+    $scope.newInstructionApp.steps.splice(index, 1);
+  }
+
+  if(editState){
+    switch($stateParams.type) {
+      case 'instruction': {
+        getInstructionApp($stateParams.id);
+        break;
+      }
+      default: {
+        getLearningApp($stateParams.id);
+      }
+    }
+  }
 }
 
 })();

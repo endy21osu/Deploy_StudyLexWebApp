@@ -18,11 +18,11 @@ router.post('/register', function(req, res) {
 
     Account.register(new Account({
       username : req.body.username,
-      email : req.body.email,
-      date : new Date()
+      email : req.body.email
     }), req.body.password, function(err, account) {
+      console.log(err);
         if (err) {
-            return res.render('register', { account : account });
+            return res.sendStatus(500);
         }
         console.log('Registered this');
         passport.authenticate('local')(req, res, function () {

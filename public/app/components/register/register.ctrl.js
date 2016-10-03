@@ -4,15 +4,12 @@
 
   RegisterCtrl.$inject = ['$scope', '$http', '$stateParams', '$state', '$rootScope'];
   function RegisterCtrl ($scope, $http, $stateParams, $state, $rootScope) {
-    console.log("RegisterCtrl");
-
   	$scope.newAccount= {
   		username: "",
-  		password:""
+  		password:"",
+      email:""
   	}
     $scope.registerAccount = function(){
-  		console.log('this is a test');
-  		console.log($scope.newAccount);
       if($scope.newAccount.password === $scope.newAccount.confirmPassword) {
         var account = {
           username:   $scope.newAccount.username,
@@ -21,15 +18,15 @@
         }
     		$http.post("/account/register", account)
     		  .success(function(data){
-
             $rootScope.state = true;
             $state.go('home');
-    			  console.log("post success");
     			})
     			.error(function(){
-    				console.log("Registration Failed.");
-
+            console.log('error');
+            $scope.error = true;
     			});
+      } else {
+        $scope.error = true;
       }
   	}
 }
