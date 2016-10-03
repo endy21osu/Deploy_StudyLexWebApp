@@ -7,26 +7,13 @@ router = express.Router(),
 path = require('path'),
 InstructionModel = require('../models/instructionModel'),
 passport = require('passport'),
-Account = require('../models/account');
-
+Account = require('../models/account'),
+AdmZip = require('adm-zip'),
+azure = require('azure-storage');
 
 var auth = function(req, res, next){
   !req.isAuthenticated() ? res.send(401) : next();
 };
-
-
-/* list all the flashcards */
-router.get('/steps', function (req, res) {
-    console.log("pulling the cards.");
-    console.log(passport);
-    passport.authenticate('local')
-    InstructionModel.find({instructionOwner: req.user._id}, function(err,steps){
-        if(err){
-            res.send(err.message);
-        }
-        res.send(steps);
-    });
-});
 
 /* get a specific flashcard by id*/
 router.get('/:id', auth, function (req, res){
@@ -113,7 +100,20 @@ router.delete('/:id', auth, function(req, res){
 
 /* load update flashcards view*/
 router.get('/export/:id', auth, function (request, response, next){
+  console.log('the export function');
+  var zip = new AdmZip();
+  zip.addLocalFile('data/demo.txt');
+  zip.writeZip('zip.zip');
 
+  InstructionModel.find({
+    _id: req.params.id
+  },function(err,data){
+    console.log(data);
+      if(err) {
+          res.send("No such subject");
+      }
+      res.send(fcard);
+  });
 })
 
 

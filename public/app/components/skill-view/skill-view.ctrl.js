@@ -13,6 +13,8 @@
   $scope.deleteInstruction = deleteInstruction;
   $scope.editInstruction = editInstruction;
   $scope.editLearning = editLearning;
+  $scope.exportLearning = exportLearning;
+  $scope.exportInstruction = exportInstruction;
 
   $scope.typeOfInstruction = $stateParams.type === 'instruction';
   $scope.typeOfLearning = $stateParams.type === 'learning';
@@ -74,7 +76,6 @@
   }
 
   function deleteInstruction(id) {
-
     $http.delete(
       "/instructions/"+id
       ).then(
@@ -88,6 +89,27 @@
 
       });
   };
+
+function exportLearning(id){
+  $http.get("/flashcards/export/" + id)
+    .then(
+    function success(){
+      console.log(data);
+    },
+    function error(data){
+      console.log("Cannot pull instruction skills.");
+  });
 }
 
-})();
+function exportInstruction(id){
+  $http.get("/instructions/export/" + id)
+    .then(
+    function success(){
+      console.log(data);
+    },
+    function error(data){
+      console.log("Cannot pull instruction skills.");
+  });
+}
+
+}})();

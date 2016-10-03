@@ -7,26 +7,13 @@ router = express.Router(),
 path = require('path'),
 FlashCardsModel = require('../models/flashCardsModel'),
 passport = require('passport'),
-Account = require('../models/account');
-
+Account = require('../models/account'),
+AdmZip = require('adm-zip'),
+azure = require('azure-storage');
 
 var auth = function(req, res, next){
   !req.isAuthenticated() ? res.send(401) : next();
 };
-
-
-/* list all the flashcards */
-// router.get('/', auth, function (req, res) {
-//     console.log("pulling the cards.");
-//     console.log(passport);
-//
-//     FlashCardsModel.find({cardOwner: req.user._id},function(err,fcard){
-//         if(err){
-//             res.send(err.message);
-//         }
-//         res.send(fcard);
-//     });
-// });
 
 /* sort get instruction by appName */
 router.get('/', auth, function (req, res) {
@@ -51,20 +38,6 @@ router.get('/:id', auth, function (req, res){
     },function(err,fcard){
         if(err){
             res.send("Invalid flashcard");
-        }
-        res.send(fcard);
-    });
-})
-
-/* sort flashcards by subjects */
-router.get('/subject/:subject', auth, function (req, res, next){
-
-    FlashCardsModel.find({
-      subject: req.params.subject,
-      cardOwner: req.user._id
-    },function(err,fcard){
-        if(err) {
-            res.send("No such subject");
         }
         res.send(fcard);
     });
@@ -132,17 +105,17 @@ router.delete('/:id', auth, function(req, res){
 
 /* load update flashcards view*/
 router.get('/export/:id', auth, function (request, response, next){
-
-      FlashCardsModel.find({
-        subject: req.params.subject,
-        cardOwner: req.user._id
-      },function(err,fcard){
-          if(err) {
-              res.send("No such subject");
-          }
-          res.send(fcard);
-      });
-
+    console.log('the export function');
+    
+    FlashCardsModel.find({
+      _id: req.params.id
+    },function(err,data){
+      console.log(data);
+        if(err) {
+            res.send("No such subject");
+        }
+        res.send(fcard);
+    });
 })
 
 module.exports = router;
