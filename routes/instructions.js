@@ -8,8 +8,9 @@ path = require('path'),
 InstructionModel = require('../models/instructionModel'),
 passport = require('passport'),
 Account = require('../models/account'),
-AdmZip = require('adm-zip'),
-azure = require('azure-storage');
+azure = require('azure-storage'),
+fs = require("fs"),
+nodeZip = require('node-zip');
 
 var auth = function(req, res, next){
   !req.isAuthenticated() ? res.send(401) : next();
@@ -99,20 +100,31 @@ router.delete('/:id', auth, function(req, res){
 })
 
 /* load update flashcards view*/
-router.get('/export/:id', auth, function (request, response, next){
-  console.log('the export function');
-  var zip = new AdmZip();
-  zip.addLocalFile('data/demo.txt');
-  zip.writeZip('zip.zip');
-
+router.get('/export/:id', auth, function (req, res){
+  console.log('the export instruction function');
+  // var blobSvc = azure.createBlobService();
   InstructionModel.find({
     _id: req.params.id
-  },function(err,data){
-    console.log(data);
-      if(err) {
-          res.send("No such subject");
-      }
-      res.send(fcard);
+  }, function(err, data) {
+    if(err) {
+        res.send("No such subject");
+    }
+
+    zip = new nodeZip();
+    zip.file(data[0].appName + '_' + Date.now() + '.json', new Buffer(JSON.stringify(data)));
+    var zipData = zip.generate({base64:false,compression:'DEFLATE'});
+    fs.writeFileSync(data[0].appName + '_learning_' + Date.now() + '.zip', zipData, 'binary');
+
+    // blobSvc.createBlockBlobFromLocalFile('zips', data.appName + '.zip', function(error, result, response){
+    //   console.log('blob callback');
+    //   if(error){
+    //     console.log(error);
+    //   }
+    //   console.log(result);
+    //   console.log();
+    //   console.log(response);
+    // });
+    res.send("created " + data[0].appName + '_learning_' + Date.now() + '.zip');
   });
 })
 
