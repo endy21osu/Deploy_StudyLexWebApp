@@ -102,7 +102,7 @@ router.delete('/:id', auth, function(req, res){
 /* load update flashcards view*/
 router.get('/export/:id', auth, function (req, res){
   console.log('the export instruction function');
-  // var blobSvc = azure.createBlobService();
+  var blobSvc = azure.createBlobService();
   InstructionModel.find({
     _id: req.params.id
   }, function(err, data) {
@@ -113,19 +113,23 @@ router.get('/export/:id', auth, function (req, res){
     zip = new nodeZip();
     zip.file(data[0].appName + '_' + Date.now() + '.json', new Buffer(JSON.stringify(data)));
     var zipData = zip.generate({base64:false,compression:'DEFLATE'});
-    fs.writeFileSync(data[0].appName + '_learning_' + Date.now() + '.zip', zipData, 'binary');
+    var name = data[0].appName + '_learning_' + Date.now() + '.zip';
+    fs.writeFileSync(name, zipData, 'binary');
+    console.log(name);
 
-    // blobSvc.createBlockBlobFromLocalFile('zips', data.appName + '.zip', function(error, result, response){
-    //   console.log('blob callback');
-    //   if(error){
-    //     console.log(error);
-    //   }
-    //   console.log(result);
-    //   console.log();
-    //   console.log(response);
-    // });
+    blobSvc.createBlockBlobFromLocalFile('zips', name, function(error, result, response){
+      console.log('blob callback');
+      if(error){
+        console.log(error);
+      }
+      console.log(result);
+      console.log();
+      console.log(response);
+    });
+    // DefaultEndpointsProtocol=https;AccountName=<storage account name>;AccountKey=<storage account key>
     res.send("created " + data[0].appName + '_learning_' + Date.now() + '.zip');
   });
+
 })
 
 
