@@ -103,13 +103,17 @@ router.delete('/:id', auth, function(req, res){
 router.get('/export/:id', auth, function (req, res){
   console.log('the export instruction function');
 
-  // var blobSvc = azure.createBlobService();
+  var AZURE_STORAGE_ACCESS_KEY = 'xy1E8xEREs4JKBTCiqp9iztByK/j5hu6Npmm1sODg6USIKhd6tlj5DaNhEv0C/UibQyzJfSwbQwQ5KwY6BGxHg==';
+  var AZURE_STORAGE_ACCOUNT = 'elev8dev';
+  var blobSvc = azure.createBlobService(AZURE_STORAGE_ACCOUNT, AZURE_STORAGE_ACCESS_KEY);
+
   InstructionModel.find({
     _id: req.params.id
   }, function(err, data) {
     if(err) {
         res.send("No such subject");
     }
+
 // ../templates/q-and-a
     var name = data[0].appName + '_instruction_' + Date.now();
     fs.unlink('./templates/instructions/user-input.json', function(err){
@@ -121,20 +125,18 @@ router.get('/export/:id', auth, function (req, res){
       zipFolder('./templates/instructions', name + '.zip', function(err) {
           if(err) {
               console.log('oh no!', err);
-              res.send("failed " + data[0].appName + '_instruction_' + Date.now() + '.zip');
+              res.send("failed " + name + '.zip');
           } else {
-              console.log('EXCELLENT');
-              // blobSvc.createBlockBlobFromLocalFile('zips', name, function(error, result, response){
-              //   console.log('blob callback');
-              //   if(error){
-              //     console.log(error);
-              //   }
-              //   console.log(result);
-              //   console.log();
-              //   console.log(response);
-              // });
-              // DefaultEndpointsProtocol=https;AccountName=<storage account name>;AccountKey=<storage account key>
-              res.send("created " + data[0].appName + '_instruction_' + Date.now() + '.zip');
+              blobSvc.createBlockBlobFromLocalFile('skills', name + '.zip', name + '.zip', function(error, result, response){
+                console.log('blob callback');
+                if(error){
+                  console.log(error);
+                }
+                console.log(result);
+                console.log();
+                console.log(response);
+                res.send("https://elev8dev.blob.core.windows.net/skills/" + name + '.zip');
+              });
           }
       });
     }); //copies directory, even if it has subdirectories or files

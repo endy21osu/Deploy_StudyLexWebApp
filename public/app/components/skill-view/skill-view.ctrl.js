@@ -93,8 +93,9 @@
 function exportLearning(id){
   $http.get("/flashcards/export/" + id)
     .then(
-    function success(){
-      console.log(data);
+    function success(res){
+      var win = window.open(res.data, '_blank');
+      win.focus();
     },
     function error(data){
       console.log("Cannot pull instruction skills.");
@@ -104,8 +105,9 @@ function exportLearning(id){
 function exportInstruction(id){
   $http.get("/instructions/export/" + id)
     .then(
-    function success(data){
-      console.log(data);
+    function success(res){
+      var win = window.open(res.data, '_blank');
+      win.focus();
     },
     function error(data){
       console.log("Cannot pull instruction skills.");
