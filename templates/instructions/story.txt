@@ -1,0 +1,25 @@
+Greeting
+    Welcome to {{ appName }}, instructions to {{ appDescription }}. 
+    Would you like to get started? 
+    - Yes -> instructions 1
+    - Help -> Help
+    - No, Stop -> stop
+
+Help
+    {{ appName }} provides a list of instructions for {{ appDescription }}.
+    You can say "Next" to move to the next instruction.
+    "Repeat" to repeat an instruction
+    "Start over" to start back at the first instruction
+    Additionally, some steps have additional help. Ask for "More Information" to learn more
+
+instructions
+    Step #. {{ stepDescription }}
+    Next -> 
+        step #+1
+        last step -> Conclusion
+    Repeat -> step #
+    Start Over -> step 1
+    More information -> access more information for the step
+
+Conclusion
+    Thank you for using {{ appName }}. 

@@ -1,0 +1,17 @@
+{
+  "name": "studybuddy",
+  "version": "1.0.0",
+  "description": "For the cincinnati hackathon",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.15.0",
+    "machina": "^2.0.0"
+  },
+  "devDependencies": {}
+}

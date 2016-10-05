@@ -1,0 +1,37 @@
+AMAZON.NextIntent Next
+AMAZON.NextIntent Next step
+AMAZON.NextIntent Next please
+AMAZON.NextIntent Next step please
+AMAZON.NextIntent Let's move on
+AMAZON.NextIntent 
+
+AMAZON.HelpIntent Help
+AMAZON.HelpIntent Help please
+AMAZON.HelpIntent Please help 
+
+AMAZON.RepeatIntent Repeat
+AMAZON.RepeatIntent Repeat please
+AMAZON.RepeatIntent Repeat that
+AMAZON.RepeatIntent Repeat that please
+AMAZON.RepeatIntent Please repeat
+AMAZON.RepeatIntent Please repeat that
+AMAZON.RepeatIntent Repeat the step please
+AMAZON.RepeatIntent Repeat that information
+
+AMAZON.StopIntent Stop
+AMAZON.StopIntent I'm done
+AMAZON.StopIntent Goodbye
+AMAZON.StopIntent Done
+
+AMAZON.YesIntent Yes
+AMAZON.YesIntent Yeah
+AMAZON.YesIntent Affirmative
+
+AMAZON.NoIntent No
+AMAZON.NoIntent Nah
+
+MoreInformationIntent Please tell me more
+MoreInformationIntent Tell me more
+MoreInformationIntent I need more information
+MoreInformationIntent Please give me more information
+MoreInformationIntent Give me more information

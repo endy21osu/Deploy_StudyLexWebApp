@@ -1,0 +1,44 @@
+AnswerIntent Answer 
+AnswerIntent Give me the answer 
+AnswerIntent Answer please
+AnswerIntent Please give me the answer 
+
+AMAZON.HelpIntent Help
+AMAZON.HelpIntent Help please
+AMAZON.HelpIntent Please help 
+
+AMAZON.RepeatIntent Repeat
+AMAZON.RepeatIntent Repeat please
+AMAZON.RepeatIntent Repeat the question
+AMAZON.RepeatIntent Repeat the question please
+AMAZON.RepeatIntent Please repeat the question
+AMAZON.RepeatIntent Repeat that
+AMAZON.RepeatIntent Repeat that please
+AMAZON.RepeatIntent Please repeat
+AMAZON.RepeatIntent Please repeat that
+
+AMAZON.StopIntent Stop
+AMAZON.StopIntent I'm done
+AMAZON.StopIntent Goodbye
+AMAZON.StopIntent Done
+
+AMAZON.YesIntent Yes
+AMAZON.YesIntent Yeah
+AMAZON.YesIntent Affirmative
+
+AMAZON.NoIntent No
+AMAZON.NoIntent Nah
+
+HintIntent Hint
+HintIntent Hint please
+HintIntent I'd like a hint
+HintIntent I need a hint
+HintIntent I want a hint
+HintIntent I would like a hint
+
+MoreInformationIntent more
+MoreInformationIntent Please tell me more
+MoreInformationIntent Tell me more
+MoreInformationIntent I need more information
+MoreInformationIntent Please give me more information
+MoreInformationIntent Give me more information
