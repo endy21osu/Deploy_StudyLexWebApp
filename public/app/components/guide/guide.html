@@ -1,0 +1,318 @@
+<div class="container guide col-sm-8 col-sm-offset-2">
+    <h2 style="color: #1b5a98 "> Alexa Skills setup guide</h2>
+    <!--<div>-->
+        <!--<nav role ="navigation"></nav>-->
+        <!--<ul>-->
+            <!--<li>introduction</li>-->
+            <!--<li>Glossary</li>-->
+            <!--<li>setup outline</li>-->
+            <!--<li>setting up AWS lambda skill</li>-->
+            <!--<li>registering the Alexa skill</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+
+    <hr>
+
+    <div id="introduction" class="row">
+        <p>
+        <h3 class="text-center">This guide serves as a simplified walkthrough for setting up an Alexa skill.</h3>
+        <h4 class="text-center">This guide does not provide guidelines to set up an Alexa Smart Home Skill</h4>
+        </p>
+        <br>
+
+            <p>
+                There are several ways to configure Alexa skills. We at elev8 have curated a simplified step-by-step process that any person,
+                with limited technical knowledge, can follow to configure the skill.
+            </p>
+
+    </div>
+
+    <br>
+
+    <div id="glossary" class="row">
+        <span><h3 class="text-center">Glossary</h3></span>
+        <ul>
+            <li >
+                <strong>Alexa skill</strong>
+
+                : Alexa’s capabilities to perform tasks. Skills enable customers to verbally
+                interact with devices in a more intuitive way. Examples of skills include the ability to play music,
+                answer general questions, set an alarm or timer, etc...
+            </li>
+            <li >
+
+                <strong>Alexa Skills kit</strong>
+                : a software framework that allows developers to add skills to Alexa.
+                <p class="tip">See :<a href="https://developer.amazon.com/appsandservices/solutions/alexa/alexa-skills-kit#Ready to start?">
+                    Alexa skills kit</a></p>
+            </li>
+            <li >
+
+                <strong>Custom Alexa skill</strong>
+                : a skill that can be custom-built and personalized with specific user requirements
+            </li>
+            <li >
+
+                <strong>Alexa Smart Home skill</strong>
+                : an Alexa skill that is specialized in controlling connected IOT (Internet of Things) devices.
+                <p class="tip">See : <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/content/smart-home">
+                    Smart Home Skills</a></p>
+            </li>
+            <li >
+
+                <strong>(Amazon Web Services)</strong>
+                : cloud-based service by Amazon where Alexa code runs.
+            </li>
+            <li >
+                <strong>Lambda Functions</strong>
+                : The Alexa code which runs on AWS.
+                <p class="tip">See : <a href="http://aws.amazon.com/lambda/">AWS Lambda</a></p>
+            </li>
+
+        </ul>
+    </div>
+
+
+    <div id="Note" class="row">
+        <br>
+        <p> Note: If you do not Alexa-enabled device, you can use third part Alexa-enabled services, such as
+            <a href="https://echosim.io/">Echosim.io</a> to test your Alexa skill.
+        </p>
+        <br>
+        <p>
+            Illustrations/Images and instructions may be subjected to change without notice.
+        </p>
+    </div>
+
+    <hr>
+
+    <div id="setup" class="row">
+        <p>
+        <h3 class="text-center" style="margin-top: 0px">Setup</h3>
+        <h4>Setting up an Alexa Skill consists of 2 major steps :</h4>
+        </p>
+        <ol type="A">
+            <li><strong>Setting up the brain of the Alexa skill (i.e Lambda Functions)</strong></li>
+            <li><strong>Registering the Alexa skill</strong></li>
+        </ol>
+        <hr>
+
+        <div id="stepA" class="row">
+            <div class="row">
+                <h4 class="text-left">A. Setting up the brain of the Alexa skill.</h4>
+                <p class="tip"> see: <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-lambda-function">Creating an AWS Lambda Function for a Skill.
+                    </a> For advanced/in-depth details
+                </p>
+            </div>
+
+            <ol>
+                <li>Sign in or Create an account in
+                    <a href="http://aws.amazon.com/">Amazon Web Services </a><br>
+                    <p class="tip "> A free account can handle an Alexa skill on almost every occasion. Check out
+                        <a href="http://aws.amazon.com/lambda/pricing/">Lambda free tier</a> for more info.
+                    </p>
+                </li>
+
+                <li>
+                    Log on to the <a href="http://aws.amazon.com/">AWS Management Console</a> and navigate to AWS Lambda.
+                </li>
+                <li>
+                    Click the region drop-down in the upper-right corner of the console window and select <strong>US East (N. Virginia)</strong>.
+                </li>
+                <li>
+                    Click the <strong>‘Lambda’</strong> link under the <strong>Compute</strong> section (fig. 1).
+
+                    <div class="text-center">
+                        <br>
+                        <img src="app/components/guide/screenshots/scrnStA4.png"  style="max-height: 250px" >
+                    </div>
+                </li>
+                <li>
+                    Click <strong>'Create a Lambda Function'</strong> → Select the <strong>blueprint</strong> tab.
+                </li>
+                <li>
+                    In the blueprint tab, click <strong>‘Skip’</strong> at the bottom right.
+                </li>
+                <li>
+                    When prompted to configure triggers (fig. 2), click the box and select <strong>Alexa Skills Kit</strong>,
+                    then click <strong>'Next'</strong>> which will show the Configure Function View.
+
+                    <div class="text-center">
+                        <br>
+                        <img src="app/components/guide/screenshots/scrnStA7.png"  style="max-height: 250px" >
+                    </div>
+                </li>
+                <li>
+                    Configure <strong>Function View</strong> – change the items listed below:
+
+                    <ol type="a">
+                        <li>Give a <strong>Name</strong> to the function</li>
+                        <li>Give a <strong>Description</strong> to the function</li>
+                        <li>Keep the <strong>runtime</strong> as <strong>Node.js 4.3</strong></li>
+                        <li>For <strong>Code entry type</strong> – select option as <strong>‘Upload a .ZIP file’</strong> and upload
+                            the provided <u>Alexa skill zip file</u>.</li>
+                        <li>Select the <strong>‘Existing Role’</strong> as the <strong>‘lambda_basic_execution’</strong></li>
+                        <li>Click <strong>‘Next’</strong> on the bottom right of the view which switches to <strong>Review View.</strong></li>
+                    </ol>
+
+                </li>
+                <li>
+                    Review View – click the <strong>‘Create function’</strong> button → opens up <strong>Alexa Skill Details View</strong>
+                </li>
+                <li>
+                    You have successfully created a lambda function
+                </li>
+                <li>
+                    Alexa Skill Details View - – copy the <strong>ARN</strong> value on the top right of the view as it will be
+                    needed in the proceeding steps
+                </li>
+            </ol>
+        </div>
+
+        <br>
+
+        <div id="stepB" class="row">
+            <div class="row">
+                <h4 class="text-left">B. Registering the Alexa skill.</h4>
+                <p class="tip">
+                    see: <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/registering-and
+                    -managing-alexa-skills-in-the-developer-portal#registering-an-alexa-skill"> Registering an Alexa Skill</a>
+                    for more details
+                </p>
+            </div>
+
+            <ol>
+                <li>Create an account or sign in to your <a href="https://developer.amazon.com/">Amazon Developer account</a>.</li>
+                <li>After signing in, click the <strong>‘Alexa’</strong> tab on the web page.</li>
+                <li>In the next window, click on the <strong>Alexa Skills Kit</strong> button (fig. 3).
+                    <div class="text-center">
+                        <br>
+                        <img src="app/components/guide/screenshots/scrnStB3.png"  style="max-height: 250px" >
+                    </div>
+                </li>
+                <li>
+                    Click the <strong>‘Add a New Skill’</strong> button on the top right of the next window.
+                </li>
+                <li>
+                    Fill in the necessary information for the <strong>‘Skill Information’</strong>
+
+                    <ol type="a">
+                        <li><strong> Name</strong> - provide the name you want your Alexa skill to have (this is the name
+                            that would show up in the Alexa Skills Library).
+                        </li>
+                        <li>
+                            <strong>Invocation Name</strong> - the name that is used to activate your app.
+                        </li>
+                        <li>
+                            Click <strong>‘Next’</strong> which opens the <strong>Interaction Model</strong> section.
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    Interaction Model section
+                    <ol type="a">
+                        <li>In the <strong>Intent Schema</strong> section, paste the contents in the provided file named <strong>‘IntentSchema.txt’</strong>
+                        </li>
+                        <li>In the <strong>Sample Utterances</strong> section, paste the contents in the provided file named <strong>‘SampleUtterances.txt’</strong>
+                        </li>
+                        <li>Click <strong>‘Next’</strong> which will take you to the <strong>Configuration</strong> section. </li>
+                    </ol>
+                </li>
+                <li>
+                    Configuration section
+
+                    <ol type="a">
+                        <li>Select the <strong>Service Endpoint Type</strong> as <strong>‘AWS Lambda ARN (Amazon Resource Name)’</strong>
+                        </li>
+                        <li>Select the region for <strong>‘AWS Lambda ARN’</strong> as <strong>‘North America’</strong></li>
+                        <li>Paste the ARN value which was copied from the Amazon AWS website (fig. 4).
+
+                            <div class="text-center">
+                                <br>
+                                <img src="app/components/guide/screenshots/scrnStB7.png"  style="max-height: 250px" >
+                            </div>
+                        </li>
+                        <li>Then click <strong>‘Next’</strong> which will switch you to the <strong>Test</strong> tab</li>
+                    </ol>
+                </li>
+                <li>
+                    Test Tab - you can test the skill here if you want to.<br>
+                    <p class="tip">
+                        See: <a href="https://developer.amazon.com/public/
+                        solutions/alexa/alexa-skills-kit/docs/testing-an-alexa-skill">Testing a Custom Skill</a>for more information.
+                    </p>
+                    <ol type="a">
+                        <li>You can skip this stage by clicking <strong>‘Next’</strong> which opens the <strong>Publishing Information</strong> tab</li>
+                    </ol>
+                </li>
+                <li>
+                    Publish Information tab <br>
+                    <p class="tip">
+                        See : <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/
+                        alexa-skills-kit-policy-testing">policy guidelines</a> for more information.
+                    </p>
+
+                    <ol type="a">
+                        <!--<li>Follow the instructions provided (<strong>'Publishing Information’</strong> file) to fill out the-->
+                            <!--<strong>Publishing Instructions</strong> section.-->
+                        <!--</li>-->
+
+
+                        <li>
+                            Click <strong>‘Next’</strong> after filling all the required information.
+                            This will lead you to the <strong>Privacy and Compliance</strong> tab
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    Privacy and Compliance Tab
+
+                    <ol type="a">
+                        <!--<li>-->
+                            <!--Follow the instructions provided (<strong>‘Privacy Compliance’</strong> file) to fill out all the required information.-->
+                        <!--</li>-->
+                        <li>
+                            After providing the required data, click the ‘Submit for Certification’ button.<br>
+                            <p class="tip">
+                                See: <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/publishing-an-alexa-skill"
+                            title="Skill submission"> Submitting the Skill for certification</a>
+                            </p>
+                        </li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+
+        <span><h4>Congratulations! you have successfully set up an Alexa Skill!</h4></span>
+    </div>
+
+    <div id="importantNote">
+        <ul>
+            <li>
+                After several days, you will receive a notification from Amazon via email mentioning that your skill has been certified
+                and the date your skill will be available on the Amazon Alexa Skills Library. <br>
+                <p class="tip">see : <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/publishing-an-alexa-skill#
+                publication-status">Publication Status</a>  for more details.</p>
+            </li>
+            <li>
+                Once you receive the message, install the skill on your Alexa app in order to start using
+                the skill on your Amazon Alexa device.
+            </li>
+            <li class="danger-text">
+                If the skill could not be certified, an email will be sent by Amazon with information on what needs to be corrected.<br>
+                <p>see: <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/
+                alexa-skills-kit-submission-checklist">Certification Requirements for Custom Skills</a> for more details.
+                </p>
+            </li>
+            <li class="danger-text">
+                Pay close attention and stick to the guidelines when entering publishing information. Failure to follow the guidelines will
+                cause Amazon to deny certification to the Alexa skill.
+            </li>
+        </ul>
+
+    </div>
+
+    <hr>
+    <br>
+
+</div>

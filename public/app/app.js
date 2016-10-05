@@ -53,6 +53,10 @@ angular.module('myApp', [
               url: "/register",
               templateUrl: './app/components/register/register.html',
               controller: 'RegisterCtrl'
+            })
+            .state("guide",{
+              url:"/guide",
+              templateUrl:'./app/components/guide/guide.html'
             });
 }])
 

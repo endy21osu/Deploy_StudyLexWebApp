@@ -273,3 +273,32 @@ table .action {
 .glyphicon-chevron-left:before{
     color: #389cec;
   }
+
+
+.guide a{
+  color: #337ab7;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: normal;
+  padding-left: 0pt;
+  padding-right: 0pt;
+}
+
+.tip{
+  color: #d47e11;
+  font-size: 13px;
+}
+
+.guide li{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.guide p{
+  margin-top: 3px;
+  margin-bottom: 0px;
+}
+
+.danger-text{
+  color: #a94442;
+}
