@@ -11,8 +11,8 @@ var express = require('express'),
 // mongoose.connect('mongodb://40.84.158.230:27017/SkillsDB'); // Dev
 // mongoose.connect('mongodb://username:password@host:port/database?options...');
 // mongoose.connect('mongodb://elev8incDevuser:ktdaSico2016@104.214.33.184:27017/SkillsDB'); // Dev
-// mongoose.connect('mongodb://elev8incdev02:pC2ol1RtDBgn4qX4o5d7gskBno5y6cbRhvchrxOnhPkCuXBfMu8YPJ31FLR4cvSSoDN7Q87VZl3pIgzOjluJHA==@elev8incdev02.documents.azure.com:10250/SkillsDB?ssl=true'); // Dev
-mongoose.connect('mongodb://localhost:27017/SkillsDB');
+mongoose.connect('mongodb://elev8incdev02:pC2ol1RtDBgn4qX4o5d7gskBno5y6cbRhvchrxOnhPkCuXBfMu8YPJ31FLR4cvSSoDN7Q87VZl3pIgzOjluJHA==@elev8incdev02.documents.azure.com:10250/SkillsDB?ssl=true'); // Dev
+// mongoose.connect('mongodb://localhost:27017/SkillsDB');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
