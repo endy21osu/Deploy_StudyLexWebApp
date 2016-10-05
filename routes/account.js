@@ -6,7 +6,8 @@ mongoose = require('mongoose'),
 router = express.Router(),
 path = require('path'),
 passport = require('passport'),
-Account = require('../models/account');
+Account = require('../models/account'),
+MailingList = require('../models/mailingList');
 
 var auth = function(req, res, next){
   !req.isAuthenticated() ? res.send(401) : next();
@@ -31,6 +32,31 @@ router.post('/register', function(req, res) {
           res.send({redirect: 'home'});
 
         });
+    });
+});
+
+//route to save email adresses
+router.post('/savemail', function(req,res){
+    console.log('subscribe');
+    var mailObj = req.body;
+    console.log(mailObj);
+    var mailingListModel = new MailingList(mailObj);
+    console.log('subscribing');
+
+    mailingListModel.save(function(err,data){
+
+        var duplicateEmailCode = 11000;
+
+        if(err){
+            if(err.code == duplicateEmailCode){
+                res.send("Email already saved.");
+            }else{
+                res.send(err);
+            }
+        }
+        else{
+            res.json(data);
+        }
     });
 });
 

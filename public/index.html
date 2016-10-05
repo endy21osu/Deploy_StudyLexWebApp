@@ -28,7 +28,7 @@
               <li><a ng-if="!state" ui-sref="login">Login</a></li>
               <li><a ng-if="!state" ui-sref="register">Register</a></li>
               <li><a ng-if="state" ui-sref="skills">Skills</a></li>
-              <li><a ng-if="state" ui-sref="guide">Alexa Skill Setup</a></li>
+              <li><a ng-if="state" ui-sref="guide">Setup</a></li>
               <li><a ng-if="state" ui-sref="create">Create</a></li>
               <li><a ng-if="state" ui-sref="logout">Logout</a></li>
 
@@ -52,15 +52,19 @@
               </div>
 
               <div class="col-md-8">
-                  <div class="row">
-                      <!--<p style="padding-top:2%">Subscribe to receive updates!</p>-->
-                      <!--<form class="form-inline">-->
-                          <!--<input type="email" class="form-control" size="50" style="border-radius: 0px" placeholder="Email Address" required>-->
-                          <!--<button type="button" class="btn btn-default">Subscribe</button>-->
-                      <!--</form>-->
+                  <div class="row" ng-if="!state">
+                    <div class="row text-center" ng-controller="FooterCtrl">
+                        <p>Subscribe to receive updates!</p>
+
+                        <form name="emailForm" class="form-inline" form ="emailList" id="emailForm">
+                            <input type="email" class="form-control" ng-class ='{warning:emailForm.address.$error.email}' name="address"
+                                   ng-model="emailList.mailAddress" size="50" style="border-radius: 0px" placeholder="{{placeholder}}" required>
+                            <button ng-click="submitEmail(this)" type="button" class="btn btn-info">Subscribe</button>
+                        </form>
+                    </div>
                   </div>
 
-                  <div class="row" style="padding-top: 2%">
+                  <div class="row" style="padding-top: 2%" ng-if="state">
                       <h5>Questions, Comments, Concerns? Let us know at <br><br> elev8learningco@gmail.com </h5>
                   </div>
 
@@ -89,5 +93,6 @@
         <script type="text/javascript" src="./app/components/login/login.ctrl.js"></script>
         <script type="text/javascript" src="./app/components/logout/logout.ctrl.js"></script>
         <script type="text/javascript" src="./app/components/register/register.ctrl.js"></script>
+        <script type="text/javascript" src="./app/components/common/footer.ctrl.js"></script>
     </footer>
 </html>

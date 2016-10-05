@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 //setting up the schema for the flash cards data model
 
 var Mailer = new Schema({
-    mailAddress: {type: String, required: true},
+    mailAddress: {type: String, required: true, unique:true, index:true},
     joined: {type: String, required: true}
 });
 
