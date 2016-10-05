@@ -6,6 +6,7 @@ mongoose = require('mongoose'),
 router = express.Router(),
 path = require('path'),
 InstructionModel = require('../models/instructionModel'),
+SkillModel = require('../models/SkillModel'),
 passport = require('passport'),
 Account = require('../models/account'),
 azure = require('azure-storage'),
@@ -127,16 +128,27 @@ router.get('/export/:id', auth, function (req, res){
               console.log('oh no!', err);
               res.send("failed " + name + '.zip');
           } else {
-              blobSvc.createBlockBlobFromLocalFile('skills', name + '.zip', name + '.zip', function(error, result, response){
-                console.log('blob callback');
-                if(error){
-                  console.log(error);
-                }
-                console.log(result);
-                console.log();
-                console.log(response);
-                res.send("https://elev8dev.blob.core.windows.net/skills/" + name + '.zip');
+            blobSvc.createBlockBlobFromLocalFile('skills', name + '.zip', name + '.zip', function(error, result, response){
+              console.log('blob callback');
+              if(error){
+                console.log(error);
+              }
+              console.log(result);
+              console.log();
+              console.log(response);
+              var skillObj = {
+                skill: name + '.zip',
+                owner: req.user._id
+              }
+              var skillModel = new SkillModel(skillObj);
+              skillModel.save(function(err,data){
+                  if(err){
+                      res.send("Error ");
+                  }
+                  console.log(data);
+                  res.send({url:"https://elev8dev.blob.core.windows.net/skills/", skillname: name + '.zip'});
               });
+            });
           }
       });
     }); //copies directory, even if it has subdirectories or files
