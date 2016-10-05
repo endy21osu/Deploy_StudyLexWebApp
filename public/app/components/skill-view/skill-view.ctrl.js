@@ -104,7 +104,7 @@ function exportLearning(id){
 function exportInstruction(id){
   $http.get("/instructions/export/" + id)
     .then(
-    function success(){
+    function success(data){
       console.log(data);
     },
     function error(data){

@@ -10,7 +10,7 @@ passport = require('passport'),
 Account = require('../models/account'),
 azure = require('azure-storage'),
 fs = require("fs"),
-nodeZip = require('node-zip');
+zipFolder = require('zip-folder');
 
 var auth = function(req, res, next){
   !req.isAuthenticated() ? res.send(401) : next();
@@ -114,22 +114,33 @@ router.get('/export/:id', auth, function (req, res){
       if(err) {
           res.send("No such subject");
       }
+      var name = data[0].appName + '_learning_' + Date.now();
+      fs.unlink('./templates/q-and-a/user-input.json', function(err){
+        // if (err) throw err;
+        console.log('./templates/q-and-a/user-input.json deleted');
 
-      zip = new nodeZip();
-      zip.file(data[0].appName + '_' + Date.now() + '.json', new Buffer(JSON.stringify(data)));
-      var zipData = zip.generate({base64:false,compression:'DEFLATE'});
-      fs.writeFileSync(data[0].appName + '_instruction_' + Date.now() + '.zip', zipData, 'binary');
-
-      // blobSvc.createBlockBlobFromLocalFile('zips', data.appName + '.zip', function(error, result, response){
-      //   console.log('blob callback');
-      //   if(error){
-      //     console.log(error);
-      //   }
-      //   console.log(result);
-      //   console.log();
-      //   console.log(response);
-      // });
-  res.send("created " + data[0].appName + '_instruction_' + Date.now() + '.zip');
+        fs.writeFileSync('./templates/q-and-a/user-input.json',  new Buffer(JSON.stringify(data)), 'utf-8');
+        // user-input.json
+        zipFolder('./templates/q-and-a', name + '.zip', function(err) {
+            if(err) {
+                console.log('oh no!', err);
+                res.send("failed " + data[0].appName + '_learning_' + Date.now() + '.zip');
+            } else {
+                console.log('EXCELLENT');
+                // blobSvc.createBlockBlobFromLocalFile('zips', name, function(error, result, response){
+                //   console.log('blob callback');
+                //   if(error){
+                //     console.log(error);
+                //   }
+                //   console.log(result);
+                //   console.log();
+                //   console.log(response);
+                // });
+                // DefaultEndpointsProtocol=https;AccountName=<storage account name>;AccountKey=<storage account key>
+                res.send("created " + data[0].appName + '_learning_' + Date.now() + '.zip');
+            }
+        });
+      }); //copies directory, even if it has subdirectories or files
   });
 })
 

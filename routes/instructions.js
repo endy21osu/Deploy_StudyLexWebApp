@@ -10,7 +10,7 @@ passport = require('passport'),
 Account = require('../models/account'),
 azure = require('azure-storage'),
 fs = require("fs"),
-nodeZip = require('node-zip');
+zipFolder = require('zip-folder');
 
 var auth = function(req, res, next){
   !req.isAuthenticated() ? res.send(401) : next();
@@ -102,34 +102,43 @@ router.delete('/:id', auth, function(req, res){
 /* load update flashcards view*/
 router.get('/export/:id', auth, function (req, res){
   console.log('the export instruction function');
-  var blobSvc = azure.createBlobService();
+
+  // var blobSvc = azure.createBlobService();
   InstructionModel.find({
     _id: req.params.id
   }, function(err, data) {
     if(err) {
         res.send("No such subject");
     }
+// ../templates/q-and-a
+    var name = data[0].appName + '_instruction_' + Date.now();
+    fs.unlink('./templates/instructions/user-input.json', function(err){
+      // if (err) throw err;
+      console.log('./templates/instructions/user-input.json deleted');
 
-    zip = new nodeZip();
-    zip.file(data[0].appName + '_' + Date.now() + '.json', new Buffer(JSON.stringify(data)));
-    var zipData = zip.generate({base64:false,compression:'DEFLATE'});
-    var name = data[0].appName + '_learning_' + Date.now() + '.zip';
-    fs.writeFileSync(name, zipData, 'binary');
-    console.log(name);
-
-    blobSvc.createBlockBlobFromLocalFile('zips', name, function(error, result, response){
-      console.log('blob callback');
-      if(error){
-        console.log(error);
-      }
-      console.log(result);
-      console.log();
-      console.log(response);
-    });
-    // DefaultEndpointsProtocol=https;AccountName=<storage account name>;AccountKey=<storage account key>
-    res.send("created " + data[0].appName + '_learning_' + Date.now() + '.zip');
+      fs.writeFileSync('./templates/instructions/user-input.json',  new Buffer(JSON.stringify(data)), 'utf-8');
+      // user-input.json
+      zipFolder('./templates/instructions', name + '.zip', function(err) {
+          if(err) {
+              console.log('oh no!', err);
+              res.send("failed " + data[0].appName + '_instruction_' + Date.now() + '.zip');
+          } else {
+              console.log('EXCELLENT');
+              // blobSvc.createBlockBlobFromLocalFile('zips', name, function(error, result, response){
+              //   console.log('blob callback');
+              //   if(error){
+              //     console.log(error);
+              //   }
+              //   console.log(result);
+              //   console.log();
+              //   console.log(response);
+              // });
+              // DefaultEndpointsProtocol=https;AccountName=<storage account name>;AccountKey=<storage account key>
+              res.send("created " + data[0].appName + '_instruction_' + Date.now() + '.zip');
+          }
+      });
+    }); //copies directory, even if it has subdirectories or files
   });
-
 })
 
 
