@@ -11,6 +11,7 @@ passport = require('passport'),
 Account = require('../models/account'),
 azure = require('azure-storage'),
 fs = require("fs"),
+fsCli = require('fs-cli'),
 zipFolder = require('zip-folder');
 
 var auth = function(req, res, next){
@@ -117,41 +118,44 @@ router.get('/export/:id', auth, function (req, res){
 
 // ../templates/q-and-a
     var name = data[0].appName + '_instruction_' + Date.now();
-    fs.unlink('./templates/instructions/user-input.json', function(err){
+    fsCli.rm('./templates/instructions/user-input.json')|| die();
       // if (err) throw err;
       console.log('./templates/instructions/user-input.json deleted');
 
       fs.writeFileSync('./templates/instructions/user-input.json',  new Buffer(JSON.stringify(data)), 'utf-8');
       // user-input.json
-      zipFolder('./templates/instructions', name + '.zip', function(err) {
-          if(err) {
-              console.log('oh no!', err);
-              res.send("failed " + name + '.zip');
-          } else {
-            blobSvc.createBlockBlobFromLocalFile('skills', name + '.zip', name + '.zip', function(error, result, response){
-              console.log('blob callback');
-              if(error){
-                console.log(error);
-              }
-              console.log(result);
-              console.log();
-              console.log(response);
-              var skillObj = {
-                skill: name + '.zip',
-                owner: req.user._id
-              }
-              var skillModel = new SkillModel(skillObj);
-              skillModel.save(function(err,data){
-                  if(err){
-                      res.send("Error ");
-                  }
-                  console.log(data);
-                  res.send({url:"https://elev8dev.blob.core.windows.net/skills/", skillname: name + '.zip'});
-              });
-            });
-          }
+      var temp = './' + name;
+      fsCli.cp('./templates/instructions', temp) || die();
+      fsCli.zip(temp, './' + name + '.zip') || die();
+      // zipFolder(name './templates/instructions', name + '.zip', function(err) {
+      //     if(err) {
+      //         console.log('oh no!', err);
+      //         res.send("failed " + name + '.zip');
+      //     } else {
+      blobSvc.createBlockBlobFromLocalFile('skills', name + '.zip', name + '.zip', function(error, result, response){
+        console.log('blob callback');
+        if(error){
+          console.log(error);
+        }
+        console.log(result);
+        console.log();
+        console.log(response);
+        var skillObj = {
+          skill: name + '.zip',
+          owner: req.user._id
+        }
+        var skillModel = new SkillModel(skillObj);
+        skillModel.save(function(err,data){
+            if(err){
+                res.send("Error ");
+            }
+            console.log(data);
+            res.send({url:"https://elev8dev.blob.core.windows.net/skills/", skillname: name + '.zip'});
+        });
       });
-    }); //copies directory, even if it has subdirectories or files
+          // }
+      // });
+    // }); //copies directory, even if it has subdirectories or files
   });
 })
 
