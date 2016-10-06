@@ -28,10 +28,12 @@ app.use(passport.session());
 var account = require('./routes/account');
 var cardRoutes = require('./routes/flashcards');
 var instructionRoutes = require('./routes/instructions');
+var splashRoutes = require('./routes/splash');
 // Import routes
 app.use('/account', account);
 app.use('/flashcards', cardRoutes);
 app.use('/instructions', instructionRoutes);
+app.use('/splash', splashRoutes);
 
 // passport config
 var Account = require('./models/account');
