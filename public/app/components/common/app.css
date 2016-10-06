@@ -295,3 +295,7 @@ a {
   padding-left: 2%;
 
 }
+
+.row.text-center.ng-scope{
+  padding-top: 25px;
+}
