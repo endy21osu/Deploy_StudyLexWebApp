@@ -3,7 +3,7 @@ var express = require('express'),
     http = require('http');
 
 router.get('/', (req, res) => {
-    res.redirect(302, 'http://www.kristinvandeusen.wix.com/elev8');
+    res.redirect(302, 'http://elev8inc.wixsite.com/welcome');
     // http.get({
     //     hostname: 'http://www.kristinvandeusen.wix.com',
     //     port: 80,
