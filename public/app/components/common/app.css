@@ -25,7 +25,9 @@
 .container.main {
   min-height: 500px;
   padding-top: 50px;
+  width: 100%;
 }
+
 
 .container-fluid.text-center {
   padding:0px;
@@ -286,6 +288,7 @@ table .action {
   margin: 0;
   padding: 0px;
   width: 100%;
+  height: 150px;
 }
 
 a {
