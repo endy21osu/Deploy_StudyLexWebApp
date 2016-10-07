@@ -25,6 +25,7 @@
 .container.main {
   min-height: 500px;
   padding-top: 50px;
+  width: 100%;
 }
 
 
@@ -44,6 +45,8 @@
 
 .jumbotron{
   background-image: url("resources/jumboPic.jpg");
+  background-size:100% 100%;
+
   color: white;
   border-radius: 0px;
   margin-bottom: 0px;
