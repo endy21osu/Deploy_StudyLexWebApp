@@ -116,7 +116,6 @@
 
     $http.post("/instructions", thisApp)
       .success(function(data){
-        console.log(data);
         $state.go('skills');
       })
       .error(function(){
@@ -141,7 +140,6 @@
 		$http.put("/flashcards", thisApp)
 			.success(function(data){
         $state.go('skills');
-				console.log("post success")
 			})
 			.error(function(){
 				console.log("Cannot save flashcard.");
@@ -167,7 +165,6 @@
       $http.put("/instructions", thisApp)
         .success(function(data){
           $state.go('skills');
-          console.log("post success")
         })
         .error(function(){
           console.log("Cannot save flashcard.");
@@ -177,9 +174,14 @@
   function getLearningApp(id) {
       $http.get("/flashcards/" + id)
         .success(function(data){
-          console.log(data);
-          $scope.newLearningApp = data[0];
-          console.log("post success");
+          var thisApp = data[0];
+          var l = thisApp.cards.length;
+
+          while(l--) {
+            thisApp.cards[l].hint =   thisApp.cards[l].hints[0];
+            delete thisApp.cards[l].hints;
+          }
+          $scope.newLearningApp = thisApp;
         })
         .error(function(){
           console.log("Cannot save flashcard.");
@@ -189,9 +191,16 @@
   function getInstructionApp(id) {
       $http.get("/instructions/" + id)
         .success(function(data){
-          console.log(data);
-          $scope.newInstructionApp = data[0];
-          console.log("post success");
+          var thisApp = data[0];
+          var l = thisApp.steps.length;
+
+          while(l--) {
+              thisApp.steps[l].helplevelone = thisApp.steps[l].help[0];
+              thisApp.steps[l].helpleveltwo = thisApp.steps[l].help[1];
+              delete thisApp.steps[l].help;
+          }
+
+          $scope.newInstructionApp = thisApp;
         })
         .error(function(){
           console.log("Cannot save flashcard.");
