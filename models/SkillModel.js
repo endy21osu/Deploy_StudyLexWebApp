@@ -8,6 +8,7 @@ var Schema = mongoose.Schema;
 
 var SkillModel = new Schema({
     skill: {type: String, required: true, unique:true, index:true},
+    skillId: {type: String, required: true},
     owner: {type: String, required: true}
 });
 
