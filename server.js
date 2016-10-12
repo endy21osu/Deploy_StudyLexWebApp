@@ -6,9 +6,11 @@ var express = require('express'),
     app = express(),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
-
-mongoose.connect('mongodb://elev8incdb:5G9v31PAtU5Vux97spObTDLfUIicUVeLxpHLjaaIjfhEJjugDFiqp7Dy7d9CaQhV1A0pyt2HFI8Hpuoulo1ddA==@elev8incdb.documents.azure.com:10250/?ssl=true'); // PROD
-// mongoose.connect('mongodb://elev8incdb:pC2ol1RtDBgn4qX4o5d7gskBno5y6cbRhvchrxOnhPkCuXBfMu8YPJ31FLR4cvSSoDN7Q87VZl3pIgzOjluJHA==@elev8incdev02.documents.azure.com:10250/SkillsDB?ssl=true'); // Dev
+// prod
+// mongoose.connect('mongodb://elev8incdb:5G9v31PAtU5Vux97spObTDLfUIicUVeLxpHLjaaIjfhEJjugDFiqp7Dy7d9CaQhV1A0pyt2HFI8Hpuoulo1ddA==@elev8incdb.documents.azure.com:10250/?ssl=true'); // PROD
+// dev
+mongoose.connect('mongodb://elev8incdb:pC2ol1RtDBgn4qX4o5d7gskBno5y6cbRhvchrxOnhPkCuXBfMu8YPJ31FLR4cvSSoDN7Q87VZl3pIgzOjluJHA==@elev8incdev02.documents.azure.com:10250/SkillsDB?ssl=true'); // Dev
+// local
 // mongoose.connect('mongodb://localhost:27017/SkillsDB'); // Local
 
 app.use(bodyParser.json());
