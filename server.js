@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('express-session')({
-    secret: 'elev8inc prod user',
+    secret: 'elev8inc user',
     resave: false,
     saveUninitialized: false
 }));
