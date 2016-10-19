@@ -1,1 +1,39 @@
-[{"_id":"57e8fdbc704eab4c1920e19a","instructionAppOwner":"57def53b922ec78c433e8c60","date":"2016-10-03T11:24:59.326Z","appName":"TestApp3","appDescription":"This explain how corporations make money.","__v":1,"steps":[{"stepnumber":"1","instruction":"Gather underpants.","_id":"57e8fdbc704eab4c1920e19d","help":[null,null]},{"stepnumber":"2","instruction":"beep","_id":"57e8fdbc704eab4c1920e19c","help":[null,null]},{"stepnumber":"3","instruction":"Profit","_id":"57e8fdbc704eab4c1920e19b","help":[null,null]},{"stepnumber":"4","instruction":"More Profit","_id":"57f2400bf36fb4bc2010e8fa","help":["Keep raping people","dont stop"]}]}]
+{
+    "appName": "Ryans Awesome App",
+    "appDescription": "Build an Alexa App",
+    "help": "You can say next or next step to advance to the next step. For any step, you can ask for it to be repeated or for more information. ",
+    "steps": [
+        {
+            "stepnumber": 1,
+            "instruction": "Go to elevate learning dot co",
+            "help" : [
+                "help 1",
+                null
+            ]
+        },
+        {
+            "stepnumber": 2,
+            "instruction": "Make an account",
+            "help" : [
+                "help 2",
+                "help 3"
+            ]
+        },
+        {
+            "stepnumber": 3,
+            "instruction": "Follow the instructions",
+            "help" : [
+                null,
+                null
+            ]
+        },
+        {
+            "stepnumber": 4,
+            "instruction": "Profit",
+            "help" : [
+                null,
+                null
+            ]
+        }
+    ]
+}

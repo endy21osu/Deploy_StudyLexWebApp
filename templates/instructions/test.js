@@ -3,17 +3,48 @@ var c = buildContext();
 
 
 
-var e = {
-    session: {
-        new: true,
+var requestBody ={
+  "version": "string",
+  "session": {
+    "new": true,
+    "sessionId": "string",
+    "application": {
+      "applicationId": "string"
     },
-    request: {
-        type: "LaunchRequest",
-        requestId: 13
+    "attributes": {
+      "string": {}
+    },
+    "user": {
+      "userId": "string",
+      "accessToken": "string"
     }
-};
+  },
+  "context": {
+    "System": {
+      "application": {
+        "applicationId": "string"
+      },
+      "user": {
+        "userId": "string",
+        "accessToken": "string"
+      },
+      "device": {
+        "supportedInterfaces": {
+          "AudioPlayer": {}
+        }
+      }
+    },
+    "AudioPlayer": {
+      "token": "string",
+      "offsetInMilliseconds": 0,
+      "playerActivity": "string"
+    }
+  },
+  "request": {}
+}
 
-thing.handler(e, c);
+
+thing.handler(requestBody, c);
 
 setTimeout(() => console.log("message:", c.message), 5000);
 
