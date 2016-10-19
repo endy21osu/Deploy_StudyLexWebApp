@@ -6,11 +6,12 @@ mongoose = require('mongoose'),
 router = express.Router(),
 path = require('path'),
 FlashCardsModel = require('../models/flashCardsModel'),
+SkillModel = require('../models/SkillModel'),
 passport = require('passport'),
 Account = require('../models/account'),
 azure = require('azure-storage'),
 fs = require("fs"),
-zipFolder = require('zip-folder');
+fsCli = require('fs-cli');
 
 var auth = function(req, res, next){
   !req.isAuthenticated() ? res.send(401) : next();
@@ -22,8 +23,6 @@ router.get('/', auth, function (req, res) {
       find({learningAppOwner: req.user._id}).
       select('appName _id appDescription').
       exec(function (err, list) {
-        console.log(err);
-        console.log(list);
         if (err) {
             res.send("No such subject");
         }
@@ -46,7 +45,6 @@ router.get('/:id', auth, function (req, res){
 
 router.post('/', auth, function(req, res){
     var newCard = req.body;
-    console.log(newCard);
     var flashCard = new FlashCardsModel(newCard);
 
     flashCard.learningAppOwner = req.user._id;
@@ -60,8 +58,6 @@ router.post('/', auth, function(req, res){
 })
 
 router.put('/', auth, function(req, res, next){
-    console.log("update the cards.");
-    console.log(passport);
     var newCard = req.body;
     FlashCardsModel.findById(newCard._id,
       function (err, flashCardData) {
@@ -87,7 +83,6 @@ router.put('/', auth, function(req, res, next){
 })
 
 router.delete('/:id', auth, function(req, res){
-    console.log("delete the cards.")
     FlashCardsModel.find({
       _id: req.params.id
     }, function(err, fcard) {
@@ -107,6 +102,10 @@ router.delete('/:id', auth, function(req, res){
 /* load update flashcards view*/
 router.get('/export/:id', auth, function (req, res){
     console.log('the export learning function');
+    // prod
+    // var AZURE_STORAGE_ACCESS_KEY = 'STL9MI5h7OXnwEj5Gq41xJjaWCQEogk8f6Apu67oKQXurOMRA18l9hVOgWrCWat2/egW2F3sC5REZiuV6kmQEw=='
+    // var AZURE_STORAGE_ACCOUNT = 'elev8'
+    // dev
     var AZURE_STORAGE_ACCESS_KEY = 'xy1E8xEREs4JKBTCiqp9iztByK/j5hu6Npmm1sODg6USIKhd6tlj5DaNhEv0C/UibQyzJfSwbQwQ5KwY6BGxHg==';
     var AZURE_STORAGE_ACCOUNT = 'elev8dev';
     var blobSvc = azure.createBlobService(AZURE_STORAGE_ACCOUNT, AZURE_STORAGE_ACCESS_KEY);
@@ -118,30 +117,35 @@ router.get('/export/:id', auth, function (req, res){
           res.send("No such subject");
       }
       var name = data[0].appName + '_learning_' + Date.now();
-      fs.unlink('./templates/q-and-a/user-input.json', function(err){
-        // if (err) throw err;
-        console.log('./templates/q-and-a/user-input.json deleted');
+      fsCli.rm('./templates/q-and-a/user-input.json')|| die();
 
-        fs.writeFileSync('./templates/q-and-a/user-input.json',  new Buffer(JSON.stringify(data)), 'utf-8');
-        // user-input.json
-        zipFolder('./templates/q-and-a', name + '.zip', function(err) {
-            if(err) {
-                console.log('oh no!', err);
-                res.send("failed " + name + '.zip');
-            } else {
-              blobSvc.createBlockBlobFromLocalFile('skills', name + '.zip', name + '.zip', function(error, result, response){
-                console.log('blob callback');
-                if(error){
-                  console.log(error);
-                }
-                console.log(result);
-                console.log();
-                console.log(response);
-                res.send("https://elev8dev.blob.core.windows.net/skills/" + name + '.zip');
-              });
+      fs.writeFileSync('./templates/q-and-a/user-input.json',  new Buffer(JSON.stringify(data)), 'utf-8');
+      var temp = './' + name;
+      fsCli.cp('./templates/q-and-a', temp) || die();
+      fsCli.zip(temp, './' + name + '.zip') || die();
+
+      blobSvc.createBlockBlobFromLocalFile('skills', name + '.zip', name + '.zip', function(error, result, response){
+        if(error){
+          console.log(error);
+        }
+        var skillObj = {
+          skill: name,
+          skillId: req.params.id,
+          owner: req.user._id
+        }
+        var skillModel = new SkillModel(skillObj);
+        skillModel.save(function(err,data){
+            if(err){
+                res.send("Error ");
             }
+            fsCli.rm('./' + name + '.zip') || die();
+            fsCli.rm('./' + name) || die();
+            //prod
+            // res.send({url:"https://elev8.blob.core.windows.net/skills/", skillname: name + '.zip'});
+            // dev
+            res.send({url:"https://elev8dev.blob.core.windows.net/skills/", skillname: name + '.zip'});
         });
-      }); //copies directory, even if it has subdirectories or files
+      });
   });
 })
 

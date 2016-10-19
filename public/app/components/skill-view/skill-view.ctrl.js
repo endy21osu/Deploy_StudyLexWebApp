@@ -94,8 +94,8 @@ function exportLearning(id){
   $http.get("/flashcards/export/" + id)
     .then(
     function success(res){
-      var win = window.open(res.data, '_blank');
-      win.focus();
+      $scope.downloadUrlId = res.data.skillname;
+      $scope.downloadUrl = res.data.url + res.data.skillname ;
     },
     function error(data){
       console.log("Cannot pull instruction skills.");
@@ -106,8 +106,8 @@ function exportInstruction(id){
   $http.get("/instructions/export/" + id)
     .then(
     function success(res){
-      var win = window.open(res.data, '_blank');
-      win.focus();
+      $scope.downloadUrlId = res.data.skillname;
+      $scope.downloadUrl = res.data.url + res.data.skillname ;
     },
     function error(data){
       console.log("Cannot pull instruction skills.");

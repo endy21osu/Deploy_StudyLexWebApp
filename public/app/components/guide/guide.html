@@ -75,7 +75,7 @@
 
     <div id="Note" class="row">
         <br>
-        <p> Note: If you do not Alexa-enabled device, you can use third part Alexa-enabled services, such as
+        <p> Note: If you do not Alexa-enabled device, you can use third party Alexa-enabled services, such as
             <a href="https://echosim.io/">Echosim.io</a> to test your Alexa skill.
         </p>
         <br>
@@ -100,8 +100,8 @@
         <div id="stepA" class="row">
             <div class="row">
                 <h4 class="text-left">A. Setting up the brain of the Alexa skill.</h4>
-                <p class="tip"> see: <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-lambda-function">Creating an AWS Lambda Function for a Skill.
-                    </a> For advanced/in-depth details
+                <p class="tip"> see: <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-lambda-function">Creating an AWS Lambda Function for a Skill
+                    </a> for more details.
                 </p>
             </div>
 
@@ -134,8 +134,8 @@
                     In the blueprint tab, click <strong>‘Skip’</strong> at the bottom right.
                 </li>
                 <li>
-                    When prompted to configure triggers (fig. 2), click the box and select <strong>Alexa Skills Kit</strong>,
-                    then click <strong>'Next'</strong>> which will show the Configure Function View.
+                    When prompted to configure triggers (fig. 2), click the outlined box and select <strong>Alexa Skills Kit</strong>,
+                    then click <strong>'Next'</strong> which will show the Configure Function View.
 
                     <div class="text-center">
                         <br>
@@ -146,25 +146,33 @@
                     Configure <strong>Function View</strong> – change the items listed below:
 
                     <ol type="a">
-                        <li>Give a <strong>Name</strong> to the function</li>
-                        <li>Give a <strong>Description</strong> to the function</li>
+                        <li>Give a <strong>Name</strong> to the function.</li>
+                        <li>Give a <strong>Description</strong> to the function.</li>
                         <li>Keep the <strong>runtime</strong> as <strong>Node.js 4.3</strong></li>
                         <li>For <strong>Code entry type</strong> – select option as <strong>‘Upload a .ZIP file’</strong> and upload
                             the provided <u>Alexa skill zip file</u>.</li>
-                        <li>Select the <strong>‘Existing Role’</strong> as the <strong>‘lambda_basic_execution’</strong></li>
+                        <li>For <strong>Role</strong>, select the option <strong>'Create new role'</strong> which opens
+                            <strong>IAM console</strong>.
+
+                            <p class="tip">If you have created a role before, select <strong>'Use Existing role'</strong>.</p>
+                        </li>
+                        <li>In the IAM console, change the <strong>IAM Role</strong> option to <strong>'Create a new IAM Role'</strong>
+                            , enter a <strong>Role Name</strong>, and click <strong>'Allow'</strong>.
+                        </li>
+
                         <li>Click <strong>‘Next’</strong> on the bottom right of the view which switches to <strong>Review View.</strong></li>
                     </ol>
 
                 </li>
                 <li>
-                    Review View – click the <strong>‘Create function’</strong> button → opens up <strong>Alexa Skill Details View</strong>
+                    Review View – click the <strong>‘Create function’</strong> button → opens up <strong>Alexa Skill Details View</strong>.
                 </li>
                 <li>
-                    You have successfully created a lambda function
+                    You have successfully created a lambda function !
                 </li>
                 <li>
-                    Alexa Skill Details View - – copy the <strong>ARN</strong> value on the top right of the view as it will be
-                    needed in the proceeding steps
+                    Alexa Skill Details View – copy the <strong>ARN</strong> value on the top right of the view as it will be
+                    needed in the proceeding steps.
                 </li>
             </ol>
         </div>
@@ -194,7 +202,7 @@
                     Click the <strong>‘Add a New Skill’</strong> button on the top right of the next window.
                 </li>
                 <li>
-                    Fill in the necessary information for the <strong>‘Skill Information’</strong>
+                    Fill in the necessary information for the <strong>‘Skill Information’</strong>.
 
                     <ol type="a">
                         <li><strong> Name</strong> - provide the name you want your Alexa skill to have (this is the name
@@ -211,16 +219,16 @@
                 <li>
                     Interaction Model section
                     <ol type="a">
-                        <li>In the <strong>Intent Schema</strong> section, paste the contents in the provided file named <strong>‘IntentSchema.txt’</strong>
+                        <li>Unzip the previously downloaded Alexa skill zip file and locate the files '<strong>intent_schema.json</strong>' and '<strong>intent_utterances.txt</strong>'</li>
+                        <li>In the <strong>Intent Schema</strong> section, paste the contents in the provided file named <strong>‘intent_schema.json’</strong>
                         </li>
-                        <li>In the <strong>Sample Utterances</strong> section, paste the contents in the provided file named <strong>‘SampleUtterances.txt’</strong>
+                        <li>In the <strong>Sample Utterances</strong> section, paste the contents in the provided file named <strong>‘intent_utterances.txt’</strong>
                         </li>
                         <li>Click <strong>‘Next’</strong> which will take you to the <strong>Configuration</strong> section. </li>
                     </ol>
                 </li>
                 <li>
                     Configuration section
-
                     <ol type="a">
                         <li>Select the <strong>Service Endpoint Type</strong> as <strong>‘AWS Lambda ARN (Amazon Resource Name)’</strong>
                         </li>
@@ -232,7 +240,7 @@
                                 <img src="app/components/guide/screenshots/scrnStB7.png"  style="max-height: 250px" >
                             </div>
                         </li>
-                        <li>Then click <strong>‘Next’</strong> which will switch you to the <strong>Test</strong> tab</li>
+                        <li>Then click <strong>‘Next’</strong> which will switch you to the <strong>Test</strong> tab.</li>
                     </ol>
                 </li>
                 <li>
@@ -242,7 +250,7 @@
                         solutions/alexa/alexa-skills-kit/docs/testing-an-alexa-skill">Testing a Custom Skill</a>for more information.
                     </p>
                     <ol type="a">
-                        <li>You can skip this stage by clicking <strong>‘Next’</strong> which opens the <strong>Publishing Information</strong> tab</li>
+                        <li>You can skip this stage by clicking <strong>‘Next’</strong> which opens the <strong>Publishing Information</strong> tab.</li>
                     </ol>
                 </li>
                 <li>
@@ -305,7 +313,7 @@
                 </p>
             </li>
             <li class="danger-text">
-                Pay close attention and stick to the guidelines when entering publishing information. Failure to follow the guidelines will
+                Pay close attention and adhere to the guidelines when entering publishing information. Failure to follow the guidelines will
                 cause Amazon to deny certification to the Alexa skill.
             </li>
         </ul>

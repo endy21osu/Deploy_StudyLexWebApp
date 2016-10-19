@@ -18,10 +18,10 @@
 				<tr ng-repeat="card in learningApp.cards" >
 					<td class="hand-text">{{card.questionNumber}}</td>
 					<td class="hand-text">{{card.question}}</td>
-					<td class="hand-text">{{card.hint}}</td>
+					<td class="hand-text">{{card.hints[0]}}</td>
 					<td class="hand-text">{{card.answer}}</td>
 					<td class="hand-text"> {{card.more}}</td>
-					<td class="hand-text">{{card.time | date:'medium'}}</td>
+					<td class="hand-text">{{learningApp.date | date:'medium'}}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -29,11 +29,18 @@
 		<div class="col-sm-2">
 			<button ng-click="editLearning(learningApp._id)" class="btn">Edit Application</button>
 		</div>
+<<<<<<< HEAD
 		<div class="col-sm-2">
+=======
+		<div  ng-if='!downloadUrl' class="col-sm-2">
+>>>>>>> 426612729fb09a3cdea4ad30ef39a8ee49c0bc0a
 			<button ng-click="exportLearning(learningApp._id)" class="btn">Produce Application</button>
 		</div>
 		<div class="col-sm-2">
 			<button ng-click="deleteLearning(learningApp._id)" class="btn">Delete</button>
+		</div>
+		<div ng-if='downloadUrl' class="col-sm-4">
+			<a ng-href="{{downloadUrl}}" download="{{downloadUrlId}}">Download Your Skill</a>
 		</div>
 	</div>
 
@@ -64,11 +71,18 @@
 		<div class="col-sm-2">
 			<button ng-click="editInstruction(instructionApp._id)" class="btn">Edit Application</button>
 		</div>
+<<<<<<< HEAD
 		<div class="col-sm-2">
+=======
+		<div ng-if='!downloadUrl' class="col-sm-2">
+>>>>>>> 426612729fb09a3cdea4ad30ef39a8ee49c0bc0a
 			<button ng-click="exportInstruction(instructionApp._id)" class="btn">Produce Application</button>
 		</div>
 		<div class="col-sm-2">
 			<button ng-click="deleteInstruction(instructionApp._id)" class="btn">Delete</button>
+		</div>
+		<div ng-if='downloadUrl' class="col-sm-4">
+			<a ng-href="{{downloadUrl}}" download="{{downloadUrlId}}">Download Your Skill</a>
 		</div>
 	</div>
 </div>
