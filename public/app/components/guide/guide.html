@@ -1,5 +1,5 @@
 <div class="container guide col-sm-8 col-sm-offset-2">
-    <h2 style="color: #1b5a98 "> Alexa Skills setup guide</h2>
+    <h2 style="color: #1b5a98 "> Alexa Skill Setup Guide</h2>
     <!--<div>-->
         <!--<nav role ="navigation"></nav>-->
         <!--<ul>-->
@@ -33,7 +33,7 @@
         <span><h3 class="text-center">Glossary</h3></span>
         <ul>
             <li >
-                <strong>Alexa skill</strong>
+                <strong>Alexa Skill</strong>
 
                 : Alexa’s capabilities to perform tasks. Skills enable customers to verbally
                 interact with devices in a more intuitive way. Examples of skills include the ability to play music,
@@ -41,20 +41,20 @@
             </li>
             <li >
 
-                <strong>Alexa Skills kit</strong>
+                <strong>Alexa Skills Kit</strong>
                 : a software framework that allows developers to add skills to Alexa.
                 <p class="tip">See :<a href="https://developer.amazon.com/appsandservices/solutions/alexa/alexa-skills-kit#Ready to start?">
-                    Alexa skills kit</a></p>
+                    Alexa Skills Kit</a></p>
             </li>
             <li >
 
-                <strong>Custom Alexa skill</strong>
+                <strong>Custom Alexa Skill</strong>
                 : a skill that can be custom-built and personalized with specific user requirements
             </li>
             <li >
 
-                <strong>Alexa Smart Home skill</strong>
-                : an Alexa skill that is specialized in controlling connected IOT (Internet of Things) devices.
+                <strong>Alexa Smart Home Skill</strong>
+                : an Alexa Skill that is specialized in controlling connected IOT (Internet of Things) devices.
                 <p class="tip">See : <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/content/smart-home">
                     Smart Home Skills</a></p>
             </li>
@@ -93,20 +93,20 @@
         </p>
         <ol type="A">
             <li><strong>Setting up the brain of the Alexa skill (i.e Lambda Functions)</strong></li>
-            <li><strong>Registering the Alexa skill</strong></li>
+            <li><strong>Registering the Alexa Skill</strong></li>
         </ol>
         <hr>
 
         <div id="stepA" class="row">
             <div class="row">
-                <h4 class="text-left">A. Setting up the brain of the Alexa skill.</h4>
+                <h4 class="text-left">A. Setting up the brain of the Alexa Skill.</h4>
                 <p class="tip"> see: <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/developing-an-alexa-skill-as-a-lambda-function">Creating an AWS Lambda Function for a Skill
                     </a> for more details.
                 </p>
             </div>
 
             <ol>
-                <li>Sign in or Create an account in
+                <li>Sign in or Create an Account in
                     <a href="http://aws.amazon.com/">Amazon Web Services </a><br>
                     <p class="tip "> A free account can handle an Alexa skill on almost every occasion. Check out
                         <a href="http://aws.amazon.com/lambda/pricing/">Lambda free tier</a> for more info.
@@ -128,14 +128,14 @@
                     </div>
                 </li>
                 <li>
-                    Click <strong>'Create a Lambda Function'</strong> → Select the <strong>blueprint</strong> tab.
+                    Click <strong>'Create a Lambda Function'</strong> → Select the <strong>blueprint</strong> tab.
                 </li>
                 <li>
                     In the blueprint tab, click <strong>‘Skip’</strong> at the bottom right.
                 </li>
                 <li>
-                    When prompted to configure triggers (fig. 2), click the outlined box and select <strong>Alexa Skills Kit</strong>,
-                    then click <strong>'Next'</strong> which will show the Configure Function View.
+                    When prompted to configure triggers (fig. 2), click the outlined box and select <strong>Alexa Skills Kit</strong>,
+                    then click <strong>'Next'</strong> which will show the Configure Function View.
 
                     <div class="text-center">
                         <br>
@@ -181,7 +181,7 @@
 
         <div id="stepB" class="row">
             <div class="row">
-                <h4 class="text-left">B. Registering the Alexa skill.</h4>
+                <h4 class="text-left">B. Registering the Alexa Skill.</h4>
                 <p class="tip">
                     see: <a href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/registering-and
                     -managing-alexa-skills-in-the-developer-portal#registering-an-alexa-skill"> Registering an Alexa Skill</a>
@@ -205,7 +205,7 @@
                     Fill in the necessary information for the <strong>‘Skill Information’</strong>.
 
                     <ol type="a">
-                        <li><strong> Name</strong> - provide the name you want your Alexa skill to have (this is the name
+                        <li><strong> Name</strong> - provide the name you want your Alexa Skill to have (this is the name
                             that would show up in the Alexa Skills Library).
                         </li>
                         <li>
@@ -219,9 +219,10 @@
                 <li>
                     Interaction Model section
                     <ol type="a">
-                        <li>In the <strong>Intent Schema</strong> section, paste the contents in the provided file named <strong>‘IntentSchema.txt’</strong>
+                        <li>Unzip the previously downloaded Alexa Skill zip file and locate the files '<strong>intent_schema.json</strong>' and '<strong>intent_utterances.txt</strong>'</li>
+                        <li>In the <strong>Intent Schema</strong> section, paste the contents in the provided file named <strong>‘intent_schema.json’</strong>
                         </li>
-                        <li>In the <strong>Sample Utterances</strong> section, paste the contents in the provided file named <strong>‘SampleUtterances.txt’</strong>
+                        <li>In the <strong>Sample Utterances</strong> section, paste the contents in the provided file named <strong>‘intent_utterances.txt’</strong>
                         </li>
                         <li>Click <strong>‘Next’</strong> which will take you to the <strong>Configuration</strong> section. </li>
                     </ol>
@@ -245,7 +246,7 @@
                 <li>
                     Test Tab - you can test the skill here if you want to.<br>
                     <p class="tip">
-                        See: <a href="https://developer.amazon.com/public/
+                        See: <a href="https://developer.amazon.com/public/
                         solutions/alexa/alexa-skills-kit/docs/testing-an-alexa-skill">Testing a Custom Skill</a>for more information.
                     </p>
                     <ol type="a">
@@ -290,7 +291,7 @@
             </ol>
         </div>
 
-        <span><h4>Congratulations! you have successfully set up an Alexa Skill!</h4></span>
+        <span><h4>Congratulations! You have successfully set up an Alexa Skill!</h4></span>
     </div>
 
     <div id="importantNote">
