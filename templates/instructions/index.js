@@ -47,7 +47,7 @@ exports.handler = function(event, context) {
         } else if(intentName == "MoreInformation") {
             fsm.more(response);
         } else {
-            context.fail("Unknown intent");
+            response.message.push("I don't understand that intent");
         }
 
         attributes.fsmState = fsm.state;
