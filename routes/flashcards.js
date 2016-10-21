@@ -103,11 +103,11 @@ router.delete('/:id', auth, function(req, res){
 router.get('/export/:id', auth, function (req, res){
     console.log('the export learning function');
     // prod
-    // var AZURE_STORAGE_ACCESS_KEY = 'STL9MI5h7OXnwEj5Gq41xJjaWCQEogk8f6Apu67oKQXurOMRA18l9hVOgWrCWat2/egW2F3sC5REZiuV6kmQEw=='
-    // var AZURE_STORAGE_ACCOUNT = 'elev8'
+    var AZURE_STORAGE_ACCESS_KEY = 'STL9MI5h7OXnwEj5Gq41xJjaWCQEogk8f6Apu67oKQXurOMRA18l9hVOgWrCWat2/egW2F3sC5REZiuV6kmQEw=='
+    var AZURE_STORAGE_ACCOUNT = 'elev8'
     // dev
-    var AZURE_STORAGE_ACCESS_KEY = 'xy1E8xEREs4JKBTCiqp9iztByK/j5hu6Npmm1sODg6USIKhd6tlj5DaNhEv0C/UibQyzJfSwbQwQ5KwY6BGxHg==';
-    var AZURE_STORAGE_ACCOUNT = 'elev8dev';
+    // var AZURE_STORAGE_ACCESS_KEY = 'xy1E8xEREs4JKBTCiqp9iztByK/j5hu6Npmm1sODg6USIKhd6tlj5DaNhEv0C/UibQyzJfSwbQwQ5KwY6BGxHg==';
+    // var AZURE_STORAGE_ACCOUNT = 'elev8dev';
     var blobSvc = azure.createBlobService(AZURE_STORAGE_ACCOUNT, AZURE_STORAGE_ACCESS_KEY);
 
     FlashCardsModel.find({
@@ -141,9 +141,9 @@ router.get('/export/:id', auth, function (req, res){
             fsCli.rm('./' + name + '.zip') || die();
             fsCli.rm('./' + name) || die();
             //prod
-            // res.send({url:"https://elev8.blob.core.windows.net/skills/", skillname: name + '.zip'});
+            res.send({url:"https://elev8.blob.core.windows.net/skills/", skillname: name + '.zip'});
             // dev
-            res.send({url:"https://elev8dev.blob.core.windows.net/skills/", skillname: name + '.zip'});
+            // res.send({url:"https://elev8dev.blob.core.windows.net/skills/", skillname: name + '.zip'});
         });
       });
   });
