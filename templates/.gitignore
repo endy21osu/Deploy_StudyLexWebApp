@@ -1,0 +1,12 @@
+logs/*
+!.gitkeep
+# leave node_modules in here, so that these can be easily ported over to the website.
+node_modules/
+bower_components/
+tmp
+.DS_Store
+
+# iterations of the zip files i've been creating
+studybuddy.zip
+studylex.zip
+alexa.zip

@@ -44,10 +44,10 @@ exports.handler = function(event, context) {
             fsm.yes(response);
         } else if(intentName === "AMAZON.NoIntent") {
             fsm.no(response);
-        } else if(intentName == "MoreInformation") {
+        } else if(intentName == "MoreInformationIntent") {
             fsm.more(response);
         } else {
-            context.fail("Unknown intent");
+            response.message.push("I don't understand that intent");
         }
 
         attributes.fsmState = fsm.state;

@@ -39,3 +39,6 @@ jspm_packages
 
 #webstorm IDE files
 /Drive D/Alexa/StudyLexa/webApp/.idea
+
+# include node_modules of template directory
+!templates/**/node_modules

@@ -1,1 +1,35 @@
-[{"_id":"57f2370ae807f3c41f82a2c6","learningAppOwner":"57def53b922ec78c433e8c60","date":"2016-10-03T11:39:24.192Z","appName":"adsfasdf","appDescription":"asdf","subject":"adsfadsf","help":"asdf","__v":2,"cards":[{"question":"adsf","answer":"asdfasdf","more":"asdf","questionNumber":"3","_id":"57f2370ae807f3c41f82a2c7","hints":[null]},{"question":"and not","answer":"is please","more":"be done.","questionNumber":"2","_id":"57f24055f36fb4bc2010e8fb","hints":[null]},{"question":"asdf","answer":"asdf","more":"ewrasdf","questionNumber":"1","_id":"57f2436c5557dc141493f759","hints":["asdf"]}]}]
+{
+    "date": "",
+    "appName": "Learning test",
+    "appDescription": "to test learning",
+    "subject": "test",
+    "help": "You can say answer to get this answer for this question and advance to the next question. For any question, you can ask for it to be repeated, for a hint, or for more information. ",
+    "cards": [
+        {
+            "questionNumber": "1",
+            "question": "what are you",
+            "answer": "a person",
+            "more": "we are people",
+            "hints": [ "everyone is" ]
+        },
+        {
+            "questionNumber": "2",
+            "question": "who are you",
+            "answer": "who who, who who",
+            "more": "I was sang by the who",
+            "hints": [
+                "I woke up in a Soho doorway",
+                "a policeman knew my name"
+            ]
+        },
+        {
+            "questionNumber": "3",
+            "question": "who are you",
+            "answer": "who who, who who",
+            "more": null,
+            "hints": [
+            ]
+        }
+    ],
+    "time": 1475450129851
+}

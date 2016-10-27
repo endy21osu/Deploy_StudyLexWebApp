@@ -6,6 +6,7 @@
     <div class="panel-body">
       <form name="login">
 
+        <div ng-show="errorMsg" class="alert alert-danger">{{errorMsg}}</div>
         <div class="form-group text-center">
           <label for="username">Username</label>
           <input type="text" class="form-control" id="username" placeholder="Enter username" ng-model="account.username">
