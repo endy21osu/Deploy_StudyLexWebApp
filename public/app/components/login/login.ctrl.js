@@ -28,7 +28,7 @@
 
 				})
 				.error(function(){
-
+					$scope.errorMsg = "Invalid login credentials"
 					console.log("Login Failed");
 				});
 		}
