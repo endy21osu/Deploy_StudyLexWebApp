@@ -111,11 +111,25 @@ router.get('/export/:id', auth, function (req, res){
     }
     var name = data[0].appName + '_instruction_' + Date.now();
     fsCli.rm('./templates/instructions/user-input.json')|| die();
+    fsCli.rm('./templaates/instructions/alexa.zip') || die();
 
     fs.writeFileSync('./templates/instructions/user-input.json',  new Buffer(JSON.stringify(data)), 'utf-8');
     var temp = './' + name;
     fsCli.cp('./templates/instructions', temp) || die();
-    fsCli.zip(temp, './' + name + '.zip') || die();
+    // fsCli.zip(temp, './' + name + '.zip') || die();
+    
+    var skillZip = './alexa.zip';
+    fsCli.zip(temp + '/fsm.js', skillZip);
+    fsCli.zip(temp + '/index.js', skillZip);
+    fsCli.zip(temp + '/responses.js', skillZip);
+    fsCli.zip(temp + '/package.json', skillZip);
+    fsCli.zip(temp + '/node_modules', skillZip);
+    fsCli.zip(temp + '/user-input.json', skillZip);
+
+    var folderZip = './' + name + '.zip';
+    fsCli.zip(temp + '/intent_utterances', folderZip);
+    fsCli.zip(temp + '/intent_schema.json', folderZip);
+
 
     blobSvc.createBlockBlobFromLocalFile('skills', name + '.zip', name + '.zip', function(error, result, response){
       if(error){
