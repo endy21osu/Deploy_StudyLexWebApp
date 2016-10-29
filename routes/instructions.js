@@ -12,7 +12,6 @@ var express = require('express'),
     azure = require('azure-storage'),
     fs = require('fs'),
     fsCli = require('fs-cli'),
-    // AdmZip = require('adm-zip');
     archiver = require('archiver');
 
 var auth = function(req, res, next){
@@ -114,95 +113,46 @@ router.get('/export/:id', auth, function (req, res){
         var name = data[0].appName + '_instruction_' + Date.now();
 
         var workingFolder = './working-' + name;
-        console.log('workingFolder', workingFolder);
         fsCli.cp('./templates/instructions', workingFolder) || die();
         fs.writeFileSync(workingFolder + '/user-input.json',  new Buffer(JSON.stringify(data)), 'utf-8');
-        
-        var outputFolder = workingFolder + '/' + name;
-        console.log('outputFolder', outputFolder);
-        fsCli.mkdir(outputFolder); 
-        
-        var skillZipFile = workingFolder + '/alexa.zip';
-        // var skillZip = new AdmZip();
-        // skillZip.addLocalFile(workingFolder + '/fsm.js');
-        // skillZip.addLocalFile(workingFolder + '/index.js');
-        // skillZip.addLocalFile(workingFolder + '/responses.js');
-        // skillZip.addLocalFile(workingFolder + '/package.json');
-        // skillZip.addLocalFolder(workingFolder + '/node_modules');
-        // skillZip.addLocalFile(workingFolder + '/user-input.json');
-        // skillZip.writeZip(skillZipFile);
 
+        var outputFolder = workingFolder + '/' + name;
+        fsCli.mkdir(outputFolder);
+
+        var skillZipFile = workingFolder + '/' + name + '.zip';
         var output = fs.createWriteStream(skillZipFile);
-        console.log('skillZipFile', skillZipFile);
 
         // called after the alexa zip has been finalized
         output.on('close', () => {
-            console.log('skill close');
-            fsCli.cp(skillZipFile, outputFolder);
-            fsCli.cp(workingFolder + '/intent_utterances.txt', outputFolder);
-            fsCli.cp(workingFolder + '/intent_schema.json', outputFolder);
+          var zipFileName = name + '.zip';
+          var zipFile = workingFolder + '/' + zipFileName;
 
-            var zipFileName = name + '.zip';
-            var zipFile = workingFolder + '/' + zipFileName;
-            console.log('zipFileName', zipFileName);
-            console.log('zipFile', zipFile);
-            // var outputZip = new AdmZip();
-            // outputZip.addLocalFolder(outputFolder);
-            // outputZip.writeZip(zipFile);
-            // fsCli.zip(outputFolder, './' + zipFile);
-
-            var output2 = fs.createWriteStream(skillZipFile);
-            output2.on('close', () => {
-                console.log('zip close');
-                blobSvc.createBlockBlobFromLocalFile('skills', zipFileName, zipFile, function(error, result, response) {
-                    if(error ){
-                        console.log(error);
-                    }
-                    var skillObj = {
-                        skill: name,
-                        skillId: req.params.id,
-                        owner: req.user._id
-                    }
-                    var skillModel = new SkillModel(skillObj);
-                    skillModel.save(function(err,data) {
-                        if(err){
-                            res.send("Error ");
-                        }
-                        //   fsCli.rm(zipFile) || die();
-                        fsCli.rm(workingFolder) || die();
-                        // prod
-                        // res.send({url:"https://elev8.blob.core.windows.net/skills/", skillname: name + '.zip'});
-                        // dev
-                        res.send({url:"https://elev8dev.blob.core.windows.net/skills/", skillname: name + '.zip'});
-                    });
-                });
-            }); // end callback to output2.on
-
-            console.log('archive2 try init');
-            var archive2 = archiver('zip', {});
-            console.log('archive2 init');
-            archive2.on('error', (err) => {
-                console.log('error in archive2', err);
-                res.status(500).send({error: err.message});
-            });
-            archive2.on('end', () => {
-                console.log('archive wrote %d bytes', archive.pointer());
-            });
-
-            archive2.pipe(output2);
-            archive2.file(skillZipFile);
-            archive2.file(outputFolder + '/intent_utterances.txt');
-            archive2.file(outputFolder + '/intent_schema.json');
-
-            console.log('archive2 try finalize');
-            archive2.finalize(); // this writes the zip and kicks off output.on()
-            console.log('archive2 finalize');
+          blobSvc.createBlockBlobFromLocalFile('skills', zipFileName, zipFile, function(error, result, response) {
+              if(error ){
+                  console.log(error);
+              }
+              var skillObj = {
+                  skill: name,
+                  skillId: req.params.id,
+                  owner: req.user._id
+              }
+              var skillModel = new SkillModel(skillObj);
+              skillModel.save(function(err,data) {
+                  if(err){
+                      res.send("Error ");
+                  }
+                  // fsCli.rm(zipFile) || die();
+                  fsCli.rm(workingFolder) || die();
+                  // prod
+                  // res.send({url:"https://elev8.blob.core.windows.net/skills/", skillname: zipFileName});
+                  // dev
+                  res.send({url:"https://elev8dev.blob.core.windows.net/skills/", skillname: zipFileName});
+              });
+          });
 
         }); // end callback to output.on
 
-        console.log('archive try init');
         var archive = archiver('zip', {});
-        console.log('archive init');
         archive.on('error', (err) => {
             console.log('error in archive', err);
             res.status(500).send({error: err.message});
@@ -217,12 +167,12 @@ router.get('/export/:id', auth, function (req, res){
         archive.file(workingFolder + '/index.js', {name: 'index.js'});
         archive.file(workingFolder + '/responses.js', {name: 'responses.js'});
         archive.file(workingFolder + '/package.json', {name: 'package.json'});
-        archive.directory(workingFolder + '/node_modules', './node_modules');
+        archive.directory(workingFolder + '/node_modules',  'node_modules');
         archive.file(workingFolder + '/user-input.json', {name: 'user-input.json'});
+        archive.file(workingFolder + '/intent_utterances.txt', {name: 'intent_utterances.txt'});
+        archive.file(workingFolder + '/intent_schema.json', {name: 'intent_schema.json'});
 
-        console.log('archive try finalize');
         archive.finalize(); // this writes the zip and kicks off output.on()
-        console.log('archive finalize');
     });
 })
 
