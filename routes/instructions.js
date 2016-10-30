@@ -114,7 +114,7 @@ router.get('/export/:id', auth, function (req, res){
 
         var workingFolder = './working-' + name;
         fsCli.cp('./templates/instructions', workingFolder) || die();
-        fs.writeFileSync(workingFolder + '/user-input.json',  new Buffer(JSON.stringify(data)), 'utf-8');
+        fs.writeFileSync(workingFolder + '/user-input.json',  new Buffer(JSON.stringify(data[0])), 'utf-8');
 
         var outputFolder = workingFolder + '/' + name;
         fsCli.mkdir(outputFolder);
