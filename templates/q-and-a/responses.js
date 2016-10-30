@@ -102,7 +102,9 @@ module.exports = function(userData, appState) {
     }
 
     function handleHelp(response) {
-        response.message.push(self.userData.help);
+        //TODO this should be pulled from somewhere
+        var text = "You can say answer to get this answer for this question and advance to the next question. For any question, you can ask for it to be repeated, for a hint, or for more information. ";
+        response.message.push(text);
     }
 
     function handleMoreInformation(response) {
