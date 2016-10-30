@@ -11,6 +11,7 @@
     "postinstall": "cd public && npm install"
   },
   "dependencies": {
+    "adm-zip": "^0.4.7",
     "angular": "^1.5.8",
     "angular-ui-router": "^0.3.1",
     "archiver": "^1.1.0",
@@ -23,6 +24,7 @@
     "express": "^4.14.0",
     "express-session": "^1.10.1",
     "fs-cli": "^0.1.1",
+    "glob": "^7.1.1",
     "kerberos": "^0.0.21",
     "mongodb": "~2.0.33",
     "mongoose": "^4.5.5",
