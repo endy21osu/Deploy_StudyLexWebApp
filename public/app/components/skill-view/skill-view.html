@@ -3,7 +3,7 @@
 		<h2>{{learningApp.appName}}</h2>
 		<h3>{{learningApp.subject}} - {{learningApp.appDescription}}</h3>
 		<h4>{{learningApp.help}}</h4>
-		<table class="table">
+		<table class="table" ng-if='!downloadUrl'>
 			<thead>
 				<tr>
 					<th>Number</th>
@@ -26,13 +26,13 @@
 			</tbody>
 		</table>
 
-		<div class="panel panel-default">
+		<div class="panel panel-default" ng-if='!downloadUrl'>
 		  <div class="panel-body">
 				<div class="row">
 					<div class="col-sm-2">
 						<button ng-click="editLearning(learningApp._id)" class="btn">Edit Application</button>
 					</div>
-					<div  ng-if='!downloadUrl' class="col-sm-2">
+					<div class="col-sm-2">
 						<button ng-click="exportLearning(learningApp._id)" class="btn">Produce Application</button>
 					</div>
 					<div class="col-sm-2">
@@ -153,7 +153,7 @@ MoreInformationIntent Give me more information
 	<div ng-if="typeOfInstruction">
 		<h2>{{instructionApp.appName}}</h2>
 		<h3>{{instructionApp.appDescription}}</h3>
-		<table class="table">
+		<table class="table" ng-if='!downloadUrl'>
 		<thead>
 			<tr>
 				<th>Step</th>
@@ -174,13 +174,13 @@ MoreInformationIntent Give me more information
 		</tbody>
 		</table>
 
-		<div class="panel panel-default">
+		<div class="panel panel-default" ng-if='!downloadUrl'>
 		  <div class="panel-body">
 				<div class="row">
 					<div class="col-sm-2">
 						<button ng-click="editInstruction(instructionApp._id)" class="btn">Edit Application</button>
 					</div>
-					<div ng-if='!downloadUrl' class="col-sm-2">
+					<div class="col-sm-2">
 						<button ng-click="exportInstruction(instructionApp._id)" class="btn">Produce Application</button>
 					</div>
 					<div class="col-sm-2">
