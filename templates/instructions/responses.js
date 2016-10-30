@@ -85,7 +85,9 @@ module.exports = function(userData, appState) {
     }
 
     function handleHelp(response) {
-        response.message.push(self.userData.help);
+        //TODO this should be pulled from somewhere
+        var text = "You can say next or next step to advance to the next step. For any step, you can ask for it to be repeated or for more information. ";
+        response.message.push(text);
     }
 
     function handleStop(response) {

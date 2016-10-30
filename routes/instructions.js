@@ -2,16 +2,17 @@
  * Created by Chat on 7/16/16.
  */
 var express = require('express'),
-mongoose = require('mongoose'),
-router = express.Router(),
-path = require('path'),
-InstructionModel = require('../models/instructionModel'),
-SkillModel = require('../models/SkillModel'),
-passport = require('passport'),
-Account = require('../models/account'),
-azure = require('azure-storage'),
-fs = require("fs"),
-fsCli = require('fs-cli');
+    mongoose = require('mongoose'),
+    router = express.Router(),
+    path = require('path'),
+    InstructionModel = require('../models/instructionModel'),
+    SkillModel = require('../models/SkillModel'),
+    passport = require('passport'),
+    Account = require('../models/account'),
+    azure = require('azure-storage'),
+    fs = require('fs'),
+    fsCli = require('fs-cli'),
+    archiver = require('archiver');
 
 var auth = function(req, res, next){
   !req.isAuthenticated() ? res.send(401) : next();
@@ -95,51 +96,84 @@ router.delete('/:id', auth, function(req, res){
 
 /* load update flashcards view*/
 router.get('/export/:id', auth, function (req, res){
-  // prod
-  // var AZURE_STORAGE_ACCESS_KEY = 'STL9MI5h7OXnwEj5Gq41xJjaWCQEogk8f6Apu67oKQXurOMRA18l9hVOgWrCWat2/egW2F3sC5REZiuV6kmQEw=='
-  // var AZURE_STORAGE_ACCOUNT = 'elev8'
-  // dev
-  var AZURE_STORAGE_ACCESS_KEY = 'xy1E8xEREs4JKBTCiqp9iztByK/j5hu6Npmm1sODg6USIKhd6tlj5DaNhEv0C/UibQyzJfSwbQwQ5KwY6BGxHg==';
-  var AZURE_STORAGE_ACCOUNT = 'elev8dev';
-  var blobSvc = azure.createBlobService(AZURE_STORAGE_ACCOUNT, AZURE_STORAGE_ACCESS_KEY);
+    // prod
+    // var AZURE_STORAGE_ACCESS_KEY = 'STL9MI5h7OXnwEj5Gq41xJjaWCQEogk8f6Apu67oKQXurOMRA18l9hVOgWrCWat2/egW2F3sC5REZiuV6kmQEw=='
+    // var AZURE_STORAGE_ACCOUNT = 'elev8'
+    // dev
+    var AZURE_STORAGE_ACCESS_KEY = 'xy1E8xEREs4JKBTCiqp9iztByK/j5hu6Npmm1sODg6USIKhd6tlj5DaNhEv0C/UibQyzJfSwbQwQ5KwY6BGxHg==';
+    var AZURE_STORAGE_ACCOUNT = 'elev8dev';
+    var blobSvc = azure.createBlobService(AZURE_STORAGE_ACCOUNT, AZURE_STORAGE_ACCESS_KEY);
 
-  InstructionModel.find({
-      _id: req.params.id
-    }, function(err, data) {
-    if(err) {
-        res.send("No such subject");
-    }
-    var name = data[0].appName + '_instruction_' + Date.now();
-    fsCli.rm('./templates/instructions/user-input.json')|| die();
+    InstructionModel.find({
+            _id: req.params.id
+        }, function(err, data) {
+        if(err) {
+            res.send("No such subject");
+        }
+        var name = data[0].appName + '_instruction_' + Date.now();
 
-    fs.writeFileSync('./templates/instructions/user-input.json',  new Buffer(JSON.stringify(data)), 'utf-8');
-    var temp = './' + name;
-    fsCli.cp('./templates/instructions', temp) || die();
-    fsCli.zip(temp, './' + name + '.zip') || die();
+        var workingFolder = './working-' + name;
+        fsCli.cp('./templates/instructions', workingFolder) || die();
+        fs.writeFileSync(workingFolder + '/user-input.json',  new Buffer(JSON.stringify(data[0])), 'utf-8');
 
-    blobSvc.createBlockBlobFromLocalFile('skills', name + '.zip', name + '.zip', function(error, result, response){
-      if(error){
-        console.log(error);
-      }
-      var skillObj = {
-        skill: name,
-        skillId: req.params.id,
-        owner: req.user._id
-      }
-      var skillModel = new SkillModel(skillObj);
-      skillModel.save(function(err,data){
-          if(err){
-              res.send("Error ");
-          }
-          fsCli.rm('./' + name + '.zip') || die();
-          fsCli.rm('./' + name) || die();
-          // prod
-          // res.send({url:"https://elev8.blob.core.windows.net/skills/", skillname: name + '.zip'});
-          // dev
-          res.send({url:"https://elev8dev.blob.core.windows.net/skills/", skillname: name + '.zip'});
-      });
+        var outputFolder = workingFolder + '/' + name;
+        fsCli.mkdir(outputFolder);
+
+        var skillZipFile = workingFolder + '/' + name + '.zip';
+        var output = fs.createWriteStream(skillZipFile);
+
+        // called after the alexa zip has been finalized
+        output.on('close', () => {
+          var zipFileName = name + '.zip';
+          var zipFile = workingFolder + '/' + zipFileName;
+
+          blobSvc.createBlockBlobFromLocalFile('skills', zipFileName, zipFile, function(error, result, response) {
+              if(error ){
+                  console.log(error);
+              }
+              var skillObj = {
+                  skill: name,
+                  skillId: req.params.id,
+                  owner: req.user._id
+              }
+              var skillModel = new SkillModel(skillObj);
+              skillModel.save(function(err,data) {
+                  if(err){
+                      res.send("Error ");
+                  }
+                  // fsCli.rm(zipFile) || die();
+                  fsCli.rm(workingFolder) || die();
+                  // prod
+                  // res.send({url:"https://elev8.blob.core.windows.net/skills/", skillname: zipFileName});
+                  // dev
+                  res.send({url:"https://elev8dev.blob.core.windows.net/skills/", skillname: zipFileName});
+              });
+          });
+
+        }); // end callback to output.on
+
+        var archive = archiver('zip', {});
+        archive.on('error', (err) => {
+            console.log('error in archive', err);
+            res.status(500).send({error: err.message});
+        });
+        archive.on('end', () => {
+            console.log('archive wrote %d bytes', archive.pointer());
+        });
+
+        archive.pipe(output);
+
+        archive.file(workingFolder + '/fsm.js', {name: 'fsm.js'});
+        archive.file(workingFolder + '/index.js', {name: 'index.js'});
+        archive.file(workingFolder + '/responses.js', {name: 'responses.js'});
+        archive.file(workingFolder + '/package.json', {name: 'package.json'});
+        archive.directory(workingFolder + '/node_modules',  'node_modules');
+        archive.file(workingFolder + '/user-input.json', {name: 'user-input.json'});
+        archive.file(workingFolder + '/intent_utterances.txt', {name: 'intent_utterances.txt'});
+        archive.file(workingFolder + '/intent_schema.json', {name: 'intent_schema.json'});
+
+        archive.finalize(); // this writes the zip and kicks off output.on()
     });
-  });
 })
 
 module.exports = router;
