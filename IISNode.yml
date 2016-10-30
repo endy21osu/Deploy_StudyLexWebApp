@@ -1,3 +1,5 @@
-loggingEnabled: false
-devErrorsEnabled: false
 logDirectory: iisnode
+loggingEnabled: true
+devErrorsEnabled: true
+maxLogFiles: 20
+
