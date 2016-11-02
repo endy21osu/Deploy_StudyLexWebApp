@@ -69,7 +69,7 @@ router.get('/:userId/:taskId/:activity', function (req, res) {
         var l = tasksData.activities.length;
         var task;
         while(l--) {
-          if(tasksData.activities[l].activity.name === req.params.activity) {
+          if(tasksData.activities[l].activity.name == req.params.activity) {
             task = tasksData.activities[l];
           }
         }
@@ -93,7 +93,7 @@ router.put('/:userId/:taskId/:activity', function(req, res) {
         var l = tasksData.activities.length;
 
         while(l--) {
-          if(tasksData.activities[l].activity.name === req.params.activity) {
+          if(tasksData.activities[l].activity.name == req.params.activity) {
             tasksData.activities[l].activity.taskCompleted = moment().utc().zone(tasksData.timeZone).toDate();
           }
         }
