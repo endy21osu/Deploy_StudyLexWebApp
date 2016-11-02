@@ -74,7 +74,7 @@ router.get('/:userId/:taskId/:activity', function (req, res) {
           }
         }
         var taskCompletedDate = moment(task.taskCompleted);
-        var isCompeleted = moment().diff(SpecialToDate, 'days')
+        var isCompeleted = moment().utc().zone(date.offset).diff(taskCompletedDate, 'days');
 
         res.json(isCompeleted);
     });
@@ -94,7 +94,7 @@ router.put('/:userId/:taskId/:activity', function(req, res) {
 
         while(l--) {
           if(tasksData.activities[l].activity.name === req.params.activity) {
-            tasksData.activities[l].activity.taskCompleted = moment().toDate();
+            tasksData.activities[l].activity.taskCompleted = moment().utc().zone(tasksData.timeZone).toDate();
           }
         }
         res.send(req.params.activity.name + " Task Completed");
