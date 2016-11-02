@@ -33,11 +33,13 @@ app.use(passport.session());
 var account = require('./routes/account');
 var cardRoutes = require('./routes/flashcards');
 var instructionRoutes = require('./routes/instructions');
+var tasksRoutes = require('./routes/tasks');
 var splashRoutes = require('./routes/welcome');
 // Import routes
 app.use('/account', account);
 app.use('/flashcards', cardRoutes);
 app.use('/instructions', instructionRoutes);
+app.use('/tasks', tasksRoutes);
 app.use('/welcome', splashRoutes);
 
 // passport config

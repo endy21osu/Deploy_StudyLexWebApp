@@ -7,6 +7,7 @@
 
   $scope.createInstructionSkill = createInstructionSkill;
   $scope.createLearningSkill = createLearningSkill;
+  $scope.createTasksSkill = createTasksSkill;
 
   function createInstructionSkill() {
     $state.go('create-view', { type: 'instruction'});
@@ -14,6 +15,10 @@
 
   function createLearningSkill() {
     $state.go('create-view', { type: 'learning'});
+  }
+
+  function createTasksSkill() {
+    $state.go('create-view', { type: 'tasks'});
   }
 
   }

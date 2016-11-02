@@ -10,6 +10,16 @@
   $scope.deleteCard = deleteCard;
   $scope.deleteStep = deleteStep;
 
+  $scope.newTasksApp = {
+    date: "",
+    appName:"",
+    appDescription: "",
+    subject:"",
+    activities: [
+      activity: ''
+    ]
+  }
+
   $scope.newStep = {
     stepnumber: 1,
     instruction: '',
@@ -46,6 +56,7 @@
   var editState = !!$stateParams.id;
   $scope.typeOfInstruction = $stateParams.type === 'instruction';
   $scope.typeOfLearning = $stateParams.type === 'learning';
+  $scope.typeOfTasks = $stateParams.type === 'tasks';
 	$scope.card="";
 
   function addItem() {
@@ -66,12 +77,16 @@
         updateInstruction();
       } else if ($scope.typeOfLearning) {
         updateLearning();
+      } else if ($scope.typeOfTasks) {
+        updateTasks();
       }
     } else {
       if ($scope.typeOfInstruction) {
         submitInstructionApp(form);
       } else if ($scope.typeOfLearning) {
         submitLearningApp(form);
+      } else if ($scope.typeOfTasks) {
+        submitTasksApp(form);
       }
     }
   }
@@ -123,6 +138,20 @@
       });
   };
 
+  function submitTasksApp(form) {
+    var now = new Date().getTime();
+    var thisApp = angular.copy($scope.newTasksApp);
+    thisApp.date = now;
+
+    $http.post("/tasks", thisApp)
+      .success(function(data){
+        $state.go('skills');
+      })
+      .error(function(){
+        console.log("Cannot save tasks.")
+      });
+  };
+
 	function updateLearning(){
     var now = new Date().getTime();
     var thisApp = angular.copy($scope.newLearningApp);
@@ -146,6 +175,19 @@
 			});
 	}
 
+  function updateTasks(){
+      var now = new Date().getTime();
+      var thisApp = angular.copy($scope.newTasksApp);
+      thisApp.date = now;
+
+      $http.put("/tasks", thisApp)
+        .success(function(data){
+          $state.go('skills');
+        })
+        .error(function(){
+          console.log("Cannot save tasks.");
+        });
+  }
 
   function updateInstruction(){
       var now = new Date().getTime();
@@ -219,6 +261,10 @@
     switch($stateParams.type) {
       case 'instruction': {
         getInstructionApp($stateParams.id);
+        break
+      }
+      case 'tasks': {
+        getTasksApp($stateParams.id);
         break;
       }
       default: {
