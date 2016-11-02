@@ -9,6 +9,22 @@
   $scope.submitApp = submitApp;
   $scope.deleteCard = deleteCard;
   $scope.deleteStep = deleteStep;
+  $scope.deleteActivity = deleteActivity;
+
+  $scope.newActivity = {
+    name: '',
+    taskCompleted: ''
+  }
+
+  $scope.newTasksApp = {
+    date: "",
+    appName:"",
+    appDescription: "",
+    subject:"",
+    activities: [
+      angular.copy($scope.newActivity)
+    ]
+  }
 
   $scope.newStep = {
     stepnumber: 1,
@@ -46,6 +62,7 @@
   var editState = !!$stateParams.id;
   $scope.typeOfInstruction = $stateParams.type === 'instruction';
   $scope.typeOfLearning = $stateParams.type === 'learning';
+  $scope.typeOfTasks = $stateParams.type === 'tasks';
 	$scope.card="";
 
   function addItem() {
@@ -57,6 +74,9 @@
     } else if ($scope.typeOfLearning) {
       temp = angular.copy($scope.newCard);
       $scope.newLearningApp.cards.push(temp);
+    } else if ($scope.typeOfTasks) {
+      temp = angular.copy($scope.newActivity);
+      $scope.newTasksApp.activities.push(temp);
     }
   }
 
@@ -66,12 +86,16 @@
         updateInstruction();
       } else if ($scope.typeOfLearning) {
         updateLearning();
+      } else if ($scope.typeOfTasks) {
+        updateTasks();
       }
     } else {
       if ($scope.typeOfInstruction) {
         submitInstructionApp(form);
       } else if ($scope.typeOfLearning) {
         submitLearningApp(form);
+      } else if ($scope.typeOfTasks) {
+        submitTasksApp(form);
       }
     }
   }
@@ -123,6 +147,21 @@
       });
   };
 
+  function submitTasksApp(form) {
+    var now = new Date().getTime();
+    var thisApp = angular.copy($scope.newTasksApp);
+    thisApp.date = now;
+    thisApp.timeZone = new Date().getTimezoneOffset();
+
+    $http.post("/tasks", thisApp)
+      .success(function(data){
+        $state.go('skills');
+      })
+      .error(function(){
+        console.log("Cannot save tasks.")
+      });
+  };
+
 	function updateLearning(){
     var now = new Date().getTime();
     var thisApp = angular.copy($scope.newLearningApp);
@@ -146,6 +185,19 @@
 			});
 	}
 
+  function updateTasks(){
+      var now = new Date().getTime();
+      var thisApp = angular.copy($scope.newTasksApp);
+      thisApp.date = now;
+
+      $http.put("/tasks", thisApp)
+        .success(function(data){
+          $state.go('skills');
+        })
+        .error(function(){
+          console.log("Cannot save tasks.");
+        });
+  }
 
   function updateInstruction(){
       var now = new Date().getTime();
@@ -207,6 +259,18 @@
         });
   }
 
+  function getTasksApp (id) {
+      $http.get("/tasks/" + id)
+        .success(function(data){
+          var thisApp = data[0];
+
+          $scope.newTasksApp = thisApp;
+        })
+        .error(function(){
+          console.log("Cannot pull tasks.");
+        });
+  }
+
   function deleteCard(index) {
     $scope.newLearningApp.cards.splice(index, 1);
   }
@@ -215,10 +279,18 @@
     $scope.newInstructionApp.steps.splice(index, 1);
   }
 
+  function deleteActivity(index) {
+    $scope.newTasksApp.activities.splice(index, 1);
+  }
+
   if(editState){
     switch($stateParams.type) {
       case 'instruction': {
         getInstructionApp($stateParams.id);
+        break
+      }
+      case 'tasks': {
+        getTasksApp($stateParams.id);
         break;
       }
       default: {

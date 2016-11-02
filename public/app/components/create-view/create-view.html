@@ -1,4 +1,63 @@
 <div id='Container' ng-controller="CreateCtrl" class="container create">
+	<div class="center-block" ng-if='typeOfTasks'>
+		<h2 class="title">Create Your Tasks Application</h2>
+		<div class="panel">
+			<div class="panel-body">
+				<form class="form-horizontal" form="tasks" id="inputTasksForm">
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="appName">Application Name:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="Tasks" placeholder="Tasks Set Name" name="appName" ng-model="newTasksApp.appName">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="appDescription">Description:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="Description" placeholder="Application Description" name="appDescription" ng-model="newTasksApp.appDescription">
+						</div>
+					</div>
+
+				<div id="myCarousel" class="carousel slide" data-ride="carousel"  data-interval="false">
+				    <!-- Wrapper for slides -->
+				    <div class="carousel-inner" role="listbox">
+				      <div class="item" ng-repeat="activity in newTasksApp.activities track by $index" ng-class="{'active': $index === 0}">
+								<div class="panel panel-primary">
+									<div class="panel-body">
+											<div class="form-group">
+												<label class="control-label col-sm-2" for="Activity">Activity:</label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" id="Activity" placeholder="Enter Activity"  name="activity" ng-model="activity.name">
+												</div>
+											</div>
+											<div class="col-sm-2" ng-if="newTasksApp.activities.length > 1">
+												<button ng-click="deleteActivity($index)" class="btn">Delete</button>
+											</div>
+									</div>
+								</div>
+				      </div>
+							<div class='carousel-controls'>
+								<!-- Indicators -->
+								<ol class="carousel-indicators">
+									<li ng-repeat="activity in newTasksApp.activities track by $index" data-target="#myCarousel" data-slide-to="{{$index}}" ng-class="{'active': $index === 0}">{{$index + 1}}</li>
+								</ol>
+								<!-- Left and right controls -->
+								<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev" target='_self'>
+									<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+									<span class="sr-only">Previous</span>
+								</a>
+								<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"  target='_self'>
+									<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+									<span class="sr-only">Next</span>
+								</a>
+							</div>
+				    </div>
+				  </div>
+				</form>
+			</div>
+		</div>
+	</div>
+
 	<div class="center-block" ng-if='typeOfInstruction'>
 		<h2 class="title">Create Your Instructions Application</h2>
 		<div class="panel">

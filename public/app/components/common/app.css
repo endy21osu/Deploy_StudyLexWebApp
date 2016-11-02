@@ -214,6 +214,8 @@ table .action {
 
 .btn-group-lg>.btn, .btn-lg {
     width: 100%;
+    white-space: normal;
+
   }
 
 .panel-cntr {
