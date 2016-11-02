@@ -27,11 +27,11 @@
 											<div class="form-group">
 												<label class="control-label col-sm-2" for="Activity">Activity:</label>
 												<div class="col-sm-10">
-													<input type="text" class="form-control" id="Activity" placeholder="Enter Activity"  name="activity" ng-model="activity">
+													<input type="text" class="form-control" id="Activity" placeholder="Enter Activity"  name="activity" ng-model="activity.name">
 												</div>
 											</div>
-											<div class="col-sm-2" ng-if="newInstructionApp.steps.length > 1">
-												<button ng-click="deleteStep($index)" class="btn">Delete</button>
+											<div class="col-sm-2" ng-if="newTasksApp.activities.length > 1">
+												<button ng-click="deleteActivity($index)" class="btn">Delete</button>
 											</div>
 									</div>
 								</div>
@@ -39,7 +39,7 @@
 							<div class='carousel-controls'>
 								<!-- Indicators -->
 								<ol class="carousel-indicators">
-									<li ng-repeat="step in newInstructionApp.steps track by $index" data-target="#myCarousel" data-slide-to="{{$index}}" ng-class="{'active': $index === 0}">{{$index + 1}}</li>
+									<li ng-repeat="activity in newTasksApp.activities track by $index" data-target="#myCarousel" data-slide-to="{{$index}}" ng-class="{'active': $index === 0}">{{$index + 1}}</li>
 								</ol>
 								<!-- Left and right controls -->
 								<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev" target='_self'>

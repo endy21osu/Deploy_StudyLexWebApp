@@ -9,6 +9,12 @@
   $scope.submitApp = submitApp;
   $scope.deleteCard = deleteCard;
   $scope.deleteStep = deleteStep;
+  $scope.deleteActivity = deleteActivity;
+
+  $scope.newActivity = {
+    name: '',
+    taskCompleted: ''
+  }
 
   $scope.newTasksApp = {
     date: "",
@@ -16,7 +22,7 @@
     appDescription: "",
     subject:"",
     activities: [
-      activity: ''
+      angular.copy($scope.newActivity)
     ]
   }
 
@@ -68,6 +74,9 @@
     } else if ($scope.typeOfLearning) {
       temp = angular.copy($scope.newCard);
       $scope.newLearningApp.cards.push(temp);
+    } else if ($scope.typeOfTasks) {
+      temp = angular.copy($scope.newActivity);
+      $scope.newTasksApp.activities.push(temp);
     }
   }
 
@@ -142,6 +151,7 @@
     var now = new Date().getTime();
     var thisApp = angular.copy($scope.newTasksApp);
     thisApp.date = now;
+    thisApp.timeZone = new Date().getTimezoneOffset();
 
     $http.post("/tasks", thisApp)
       .success(function(data){
@@ -249,12 +259,28 @@
         });
   }
 
+  function getTasksApp (id) {
+      $http.get("/tasks/" + id)
+        .success(function(data){
+          var thisApp = data[0];
+
+          $scope.newTasksApp = thisApp;
+        })
+        .error(function(){
+          console.log("Cannot pull tasks.");
+        });
+  }
+
   function deleteCard(index) {
     $scope.newLearningApp.cards.splice(index, 1);
   }
 
   function deleteStep(index) {
     $scope.newInstructionApp.steps.splice(index, 1);
+  }
+
+  function deleteActivity(index) {
+    $scope.newTasksApp.activities.splice(index, 1);
   }
 
   if(editState){

@@ -12,6 +12,7 @@ var express = require('express'),
     azure = require('azure-storage'),
     fs = require('fs'),
     fsCli = require('fs-cli'),
+    moment = require('moment'),
     archiver = require('archiver');
 
 var auth = function(req, res, next){
@@ -53,6 +54,50 @@ router.post('/', auth, function(req, res){
         }
         res.json(data._id);
 
+    });
+})
+
+router.get('/:userId/:taskId/:activity', function (req, res) {
+    TasksModel.
+      find({tasksAppOwner: req.params._id, _id: req.params.tasksId}).
+      select('activities').
+      exec(function(err,tasksList){
+        if(err) {
+            res.send("No such subject");
+        }
+
+        var l = tasksData.activities.length;
+        var task;
+        while(l--) {
+          if(tasksData.activities[l].activity.name === req.params.activity) {
+            task = tasksData.activities[l];
+          }
+        }
+        var taskCompletedDate = moment(task.taskCompleted);
+        var isCompeleted = moment().diff(SpecialToDate, 'days')
+
+        res.json(isCompeleted);
+    });
+})
+
+router.put('/:userId/:taskId/:activity', function(req, res) {
+    var newTasksApp = req.body;
+    var tasksApp = new TasksModel(newTasksApp);
+    TasksModel.
+      find({tasksAppOwner: req.params.userId, _id: req.params.tasksId}).
+      exec(function(err, tasksData) {
+        if(err) {
+            res.send("Error ");
+        }
+
+        var l = tasksData.activities.length;
+
+        while(l--) {
+          if(tasksData.activities[l].activity.name === req.params.activity) {
+            tasksData.activities[l].activity.taskCompleted = moment().toDate();
+          }
+        }
+        res.send(req.params.activity.name + " Task Completed");
     });
 })
 

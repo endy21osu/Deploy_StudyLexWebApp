@@ -6,13 +6,15 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ActivitySchema = new Schema({
-      activity: {type: String, required: true}
+      name: {type: String, required: true},
+      taskCompleted: {type: Date}
 });
 
 var TasksSchema = new Schema({
     appName: {type: String, required: true},
     appDescription: {type: String, required: true},
     tasksAppOwner: {type: String, required: true},
+    timeZone: {type: String, required: true},
     date: {type: Date},
     activities: [ActivitySchema]
 });

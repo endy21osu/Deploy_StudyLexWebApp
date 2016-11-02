@@ -7,17 +7,17 @@
         <div class="panel panel-default">
            <div class="panel-heading">
               <h4 class="panel-title">
-                 <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" target="_self">
+                 <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" target="_self">
                  Tasks Skills
                  </a>
               </h4>
            </div>
-           <div id="collapseOne" class="panel-collapse collapse">
+           <div id="collapseFour" class="panel-collapse collapse">
               <div class="panel-body">
                  <div class="well" ng-repeat="tasksApp in skill.tasks track by $index">
                     <div class="row">
                        <div class="col-sm-3">
-                          <button type="button" class="btn btn-primary btn-lg" ng-click='viewInstructionSkill(instApp._id)'>{{tasksApp.appName}}</button>
+                          <button type="button" class="btn btn-primary btn-lg" ng-click='viewTasksSkill(tasksApp._id)'>{{tasksApp.appName}}</button>
                        </div>
                        <div class="col-sm-9">
                           <p>{{tasksApp.appDescription}}</p>
