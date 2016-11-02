@@ -119,7 +119,7 @@ router.get('/export/:id', auth, function (req, res){
       }
       var name = data[0].appName + '_learning_' + Date.now();
       var workingFolder = './working-' + name;
-      fsCli.cp('./templates/instructions', workingFolder) || die();
+      fsCli.cp('./templates/q-and-a', workingFolder) || die();
       fs.writeFileSync(workingFolder + '/user-input.json',  new Buffer(JSON.stringify(data[0])), 'utf-8');
 
       var outputFolder = workingFolder + '/' + name;
@@ -133,7 +133,7 @@ router.get('/export/:id', auth, function (req, res){
         var zipFileName = name + '.zip';
         var zipFile = workingFolder + '/' + zipFileName;
 
-        blobSvc.createBlockBlobFromLocalFile('skills', zipFileName, zipFile, function(error, result, response){
+        blobSvc.createBlockBlobFromLocalFile('skills', zipFileName, zipFile, function(error, result, response) {
           if(error){
             console.log(error);
           }
@@ -158,7 +158,6 @@ router.get('/export/:id', auth, function (req, res){
       }); // end callback to output.on
 
       var archive = archiver('zip', {});
-
       archive.on('error', (err) => {
           console.log('error in archive', err);
           res.status(500).send({error: err.message});
