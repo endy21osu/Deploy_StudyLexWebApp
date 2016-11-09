@@ -12,14 +12,32 @@ exports.handler = function(event, context) {
     event.session.attributes = event.session.attributes || {};
 
     if (event.session.new) {
-    }
+        console.log("new session");
+        loadUserData(event.session.attributes.userData).then(ud => {
+            event.session.attributes.userData = ud;
+            event.session.attributes.appState = {
+                currentStep: 0,
+                currentMoreInformationLevel: 0
+            };
 
-    if(event.request.type === "LaunchRequest") {
-        //TODO refactor into promise
-        handleLaunchRequest(event, context);
-    } else if(event.request.type === "IntentRequest") {
-        //TODO refactor into promise
-        handleIntentRequest(event, context);
+            if(event.request.type === "LaunchRequest") {
+                //TODO refactor into promise
+                handleLaunchRequest(event, context);
+            } else if(event.request.type === "IntentRequest") {
+                //TODO refactor into promise
+                event.session.attributes.fsmState = "welcome";
+                handleIntentRequest(event, context);
+            }
+        });
+    } else {
+        console.log("old session");
+        if(event.request.type === "LaunchRequest") {
+            //TODO refactor into promise
+            handleLaunchRequest(event, context);
+        } else if(event.request.type === "IntentRequest") {
+            //TODO refactor into promise
+            handleIntentRequest(event, context);
+        }
     }
 
     function handleIntentRequest(event, context) {
@@ -44,6 +62,8 @@ exports.handler = function(event, context) {
             fsm.yes(response);
         } else if(intentName === "AMAZON.NoIntent") {
             fsm.no(response);
+        } else if(intentName == "AMAZON.CancelIntent") {
+            cancel(response);
         } else if(intentName == "MoreInformationIntent") {
             fsm.more(response);
         } else {
@@ -63,32 +83,20 @@ exports.handler = function(event, context) {
         var attributes = event.session.attributes;
         console.log("handle launch");
 
-        loadUserData(attributes.userData).then(ud => {
-            console.log("promise resolved");
-            attributes.userData = ud;
-            attributes.appState = {
-                currentStep: 0,
-                currentMoreInformationLevel: 0
-            };
-            var responses = loadResponses(
-                attributes.userData, attributes.appState); 
-            var fsm = buildFsm(responses);
+        var responses = loadResponses(
+            attributes.userData, attributes.appState); 
+        var fsm = buildFsm(responses);
 
-            var response = responses.buildResponse();
-            fsm.start(response);
-            attributes.fsmState = fsm.state;
-            attributes.appState.currentStep = responses.getCurrentStep();
-            attributes.appState.currentMoreInformationLevel = 
+        var response = responses.buildResponse();
+        fsm.start(response);
+        attributes.fsmState = fsm.state;
+        attributes.appState.currentStep = responses.getCurrentStep();
+        attributes.appState.currentMoreInformationLevel = 
             responses.getCurrentMoreInformationLevel();
 
-            console.log(attributes);
-            var alexaResponse = buildAlexaResponse(event, response);
-            context.succeed(alexaResponse);
-        }, obj => {
-            console.log("it failed", obj);
-        }).catch(err => {
-            context.fail(err);
-        });
+        console.log(attributes);
+        var alexaResponse = buildAlexaResponse(event, response);
+        context.succeed(alexaResponse);
     }
 
     function buildAlexaResponse(event, response) {
@@ -116,8 +124,12 @@ exports.handler = function(event, context) {
         };
     }
 
+    function cancel(response) {
+        response.shouldEnd = true;
+    }
+
     function loadResponses(userData, currentStep) {
-        return obj = require('./responses.js')(userData, currentStep);
+        return require('./responses.js')(userData, currentStep);
     }
 
     function loadUserData(userData) {
