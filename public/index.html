@@ -36,6 +36,9 @@
           </div>
         </div>
       </nav>
+      <div ng-if="serverCall" class="call-spinner">
+    	  <img src="app/img/largeSpinner.gif" width="318" height="174">
+    	</div>
       <div class="container main">
           <div class="row">
               <div ui-view></div>

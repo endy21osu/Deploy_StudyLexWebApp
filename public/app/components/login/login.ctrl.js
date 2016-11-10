@@ -16,10 +16,10 @@
 
 		$scope.loginApp = function(){
 			console.log($scope.account);
-
+			$rootScope.serverCall = true;
 			$http.post("/account/login", $scope.account)
 				.success(function(data){
-
+					$rootScope.serverCall = false;
 					console.log(data);
 					$state.go('home');
 					$rootScope.state = true;
@@ -28,6 +28,7 @@
 
 				})
 				.error(function(){
+					$rootScope.serverCall = false;
 					$scope.errorMsg = "Invalid login credentials"
 					console.log("Login Failed");
 				});
