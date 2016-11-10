@@ -84,6 +84,9 @@
         {
             "intent": "AMAZON.StartOverIntent"
         },
+				{
+						"intent": "AMAZON.CancelIntent"
+				},
         {
             "intent": "MoreInformationIntent"
         },
@@ -178,10 +181,10 @@ MoreInformationIntent Give me more information
 		  <div class="panel-body">
 				<div class="row">
 					<div class="col-sm-2">
-						<button ng-click="editInstruction(instructionApp._id)" class="btn">Edit Application</button>
+						<button ng-click="editInstruction(instructionApp._id)" class="btn">Edit Skill</button>
 					</div>
 					<div class="col-sm-2">
-						<button ng-click="exportInstruction(instructionApp._id)" class="btn">Produce Application</button>
+						<button ng-click="exportInstruction(instructionApp._id)" class="btn">Produce Skill</button>
 					</div>
 					<div class="col-sm-2">
 						<button ng-click="deleteInstruction(instructionApp._id)" class="btn">Delete</button>
@@ -229,6 +232,9 @@ MoreInformationIntent Give me more information
         {
             "intent": "AMAZON.NoIntent"
         },
+				{
+						"intent": "AMAZON.CancelIntent"
+				},
         {
             "intent": "MoreInformationIntent"
         }
@@ -306,10 +312,10 @@ MoreInformationIntent Give me more information
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-sm-2">
-						<button ng-click="editTasks(tasksApp._id)" class="btn">Edit Application</button>
+						<button ng-click="editTasks(tasksApp._id)" class="btn">Edit Skill</button>
 					</div>
 					<div class="col-sm-2">
-						<button ng-click="exportTasks(tasksApp._id)" class="btn">Produce Application</button>
+						<button ng-click="exportTasks(tasksApp._id)" class="btn">Produce Skill</button>
 					</div>
 					<div class="col-sm-2">
 						<button ng-click="deleteTasks(tasksApp._id)" class="btn">Delete</button>

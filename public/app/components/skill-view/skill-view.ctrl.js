@@ -128,37 +128,46 @@
   };
 
   function exportTasks(id){
+    $rootScope.serverCall = true;
     $http.get("/tasks/export/" + id)
       .then(
       function success(res){
+        $rootScope.serverCall = false;
         $scope.downloadUrlId = res.data.skillname;
         $scope.downloadUrl = res.data.url + res.data.skillname ;
       },
       function error(data){
+        $rootScope.serverCall = false;
         console.log("Cannot pull tasks skills.");
     });
   }
 
 function exportLearning(id){
+  $rootScope.serverCall = true;
   $http.get("/flashcards/export/" + id)
     .then(
     function success(res){
+      $rootScope.serverCall = false;
       $scope.downloadUrlId = res.data.skillname;
       $scope.downloadUrl = res.data.url + res.data.skillname ;
     },
     function error(data){
+      $rootScope.serverCall = false;
       console.log("Cannot pull instruction skills.");
   });
 }
 
 function exportInstruction(id){
+  $rootScope.serverCall = true;
   $http.get("/instructions/export/" + id)
     .then(
     function success(res){
+      $rootScope.serverCall = false;
       $scope.downloadUrlId = res.data.skillname;
       $scope.downloadUrl = res.data.url + res.data.skillname ;
     },
     function error(data){
+      $rootScope.serverCall = false;
       console.log("Cannot pull instruction skills.");
   });
 }
