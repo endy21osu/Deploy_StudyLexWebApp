@@ -27,10 +27,30 @@
   padding-top: 50px;
 }
 
+
+.container-fluid.text-center {
+  padding:0px;
+}
+
+
+.container-fluid.text-center {
+  padding:0px;
+}
+
 .spinner {
   text-align: center;
   display: table;
   margin: 0 auto;
+}
+
+.call-spinner {
+  position: absolute;
+  text-align: center;
+  z-index: 100;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 125px 0 0 0;
+  width: 100%;
 }
 
 @media screen and (min-width: 960px) {
@@ -39,6 +59,8 @@
 
 .jumbotron{
   background-image: url("resources/jumboPic.jpg");
+  background-size:100% 100%;
+
   color: white;
   border-radius: 0px;
   margin-bottom: 0px;
@@ -46,11 +68,14 @@
 
 
 .jumbotron-card{
-  background-color: rgba(56, 156, 236, 0.75);
   margin: 2pt;
   border-radius: 0px;
   height: 180px;
   padding-top: 2%;
+  background-color: rgba(255, 255, 255, .8);
+  border-style: solid;
+  border-width:2px;
+  border-color: #002E5D;
 
 
 }
@@ -66,7 +91,7 @@
 
 .jumbotron-card a{
   padding: 0;
-  color: #fff;
+  color: #002E5D;
 }
 
 .jumbotron-card h3{
@@ -199,6 +224,8 @@ table .action {
 
 .btn-group-lg>.btn, .btn-lg {
     width: 100%;
+    white-space: normal;
+
   }
 
 .panel-cntr {
@@ -280,31 +307,18 @@ table .action {
     color: #389cec;
   }
 
-
-.guide a{
-  color: #337ab7;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: normal;
-  padding-left: 0pt;
-  padding-right: 0pt;
+.row.base {
+  margin: 0;
+  padding: 0px;
+  width: 100%;
+  height: 150px;
 }
 
-.tip{
-  color: #d47e11;
-  font-size: 13px;
+a {
+  font-size: 15px;
+  font-weight: 300;
 }
 
-.guide li{
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-.guide p{
-  margin-top: 3px;
-  margin-bottom: 0px;
-}
-
-.danger-text{
-  color: #a94442;
+.row.text-center.ng-scope{
+  padding-top: 25px;
 }

@@ -10,11 +10,14 @@
 
 	$scope.skill = {};
   $scope.chooseSkill = true;
-	$scope.viewCards = false;
-	$scope.viewInstruction = false;
+	$scope.viewCards = false
+  $scope.viewInstruction = false;
+	$scope.viewTasks = false;
+  $scope.viewTasksSkill = viewTasksSkill;
   $scope.viewInstructionSkill = viewInstructionSkill;
   $scope.viewLearningSkill = viewLearningSkill;
 
+  getTasksList();
   getInstructionList();
   getLearningList();
 
@@ -28,6 +31,21 @@
 
   function viewLearningSkill(_id) {
     $state.go('skill', { type: 'learning', id: _id});
+  }
+
+  function viewTasksSkill(_id) {
+    $state.go('skill', { type: 'tasks', id: _id});
+  }
+
+  function getTasksList() {
+    $http.get("/tasks").
+      success(function(data){
+        console.log(data);
+        $scope.skill.tasks = data;
+      })
+      .error(function(){
+        console.log("Cannot pull tasks skills.");
+      });
   }
 
   function getInstructionList() {

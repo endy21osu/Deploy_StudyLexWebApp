@@ -1,11 +1,70 @@
 <div id='Container' ng-controller="CreateCtrl" class="container create">
+	<!-- <div class="center-block" ng-if='typeOfTasks'>
+		<h2 class="title">Create Your Tasks Skill</h2>
+		<div class="panel">
+			<div class="panel-body">
+				<form class="form-horizontal" form="tasks" id="inputTasksForm">
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="appName">Skill Name:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="Tasks" placeholder="Tasks Set Name" name="appName" ng-model="newTasksApp.appName">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="appDescription">Description:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="Description" placeholder="Application Description" name="appDescription" ng-model="newTasksApp.appDescription">
+						</div>
+					</div>
+
+				<div id="myCarousel" class="carousel slide" data-ride="carousel"  data-interval="false">
+
+				    <div class="carousel-inner" role="listbox">
+				      <div class="item" ng-repeat="activity in newTasksApp.activities track by $index" ng-class="{'active': $index === 0}">
+								<div class="panel panel-primary">
+									<div class="panel-body">
+											<div class="form-group">
+												<label class="control-label col-sm-2" for="Activity">Activity:</label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" id="Activity" placeholder="Enter Activity"  name="activity" ng-model="activity.name">
+												</div>
+											</div>
+											<div class="col-sm-2" ng-if="newTasksApp.activities.length > 1">
+												<button ng-click="deleteActivity($index)" class="btn">Delete</button>
+											</div>
+									</div>
+								</div>
+				      </div>
+							<div class='carousel-controls'>
+
+								<ol class="carousel-indicators">
+									<li ng-repeat="activity in newTasksApp.activities track by $index" data-target="#myCarousel" data-slide-to="{{$index}}" ng-class="{'active': $index === 0}">{{$index + 1}}</li>
+								</ol>
+
+								<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev" target='_self'>
+									<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+									<span class="sr-only">Previous</span>
+								</a>
+								<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"  target='_self'>
+									<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+									<span class="sr-only">Next</span>
+								</a>
+							</div>
+				    </div>
+				  </div>
+				</form>
+			</div>
+		</div>
+	</div> -->
+
 	<div class="center-block" ng-if='typeOfInstruction'>
-		<h2 class="title">Create Your Instructions App</h2>
+		<h2 class="title">Create Your Instructions Skill</h2>
 		<div class="panel">
 			<div class="panel-body">
 				<form class="form-horizontal" form="instruction" id="inputInstructionForm">
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="appName">Application Name:</label>
+						<label class="control-label col-sm-2" for="appName">Skill Name:</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="Manual" placeholder="Instruction Set Name" name="appName" ng-model="newInstructionApp.appName">
 						</div>
@@ -14,7 +73,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="appDescription">Description:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="Description" placeholder="App Description" name="appDescription" ng-model="newInstructionApp.appDescription">
+							<input type="text" class="form-control" id="Description" placeholder="Application Description" name="appDescription" ng-model="newInstructionApp.appDescription">
 						</div>
 					</div>
 
@@ -73,12 +132,12 @@
 	</div>
 
 	<div class="center-block" ng-if='typeOfLearning'>
-		<h2 class="title">Create Your Learning App</h2>
+		<h2 class="title">Create Your Learning Skill</h2>
 		<div class="panel">
 			<div class="panel-body">
 				<form class="form-horizontal" form="learning" id="inputLearningForm">
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="appName">Applicattion Name:</label>
+						<label class="control-label col-sm-2" for="appName">Skill Name:</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="Manual" placeholder="Learning Set Name" name="appName" ng-model="newLearningApp.appName">
 						</div>
@@ -94,7 +153,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="appDescription">Description:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="Description" placeholder="App Description" name="appDescription" ng-model="newLearningApp.appDescription">
+							<input type="text" class="form-control" id="Description" placeholder="Application Description" name="appDescription" ng-model="newLearningApp.appDescription">
 						</div>
 					</div>
 
@@ -135,7 +194,7 @@
 										<div class="form-group">
 											<label class="control-label col-sm-3" for="More">More Info:</label>
 											<div class="col-sm-9">
-												<textarea class="form-control" rows= 3 id="More" placeholder="Enter additional information" name="more" ng-model="card.more"></textarea>
+												<textarea class="form-control" rows="3" id="More" placeholder="Enter Additional Information" name="more" ng-model="card.more"></textarea>
 											</div>
 										</div>
 
@@ -174,7 +233,7 @@
 		<button ng-click="addItem(this)" class="btn">Add Item</button>
 	</div>
 	<div class="col-sm-2">
-		<button ng-click="submitApp(this)" class="btn">Save Application</button>
+		<button ng-click="submitApp(this)" class="btn">Save Skill</button>
 	</div>
 
 </div>

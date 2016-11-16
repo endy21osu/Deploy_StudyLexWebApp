@@ -3,7 +3,7 @@
 		<h2>{{learningApp.appName}}</h2>
 		<h3>{{learningApp.subject}} - {{learningApp.appDescription}}</h3>
 		<h4>{{learningApp.help}}</h4>
-		<table class="table">
+		<table class="table" ng-if='!downloadUrl'>
 			<thead>
 				<tr>
 					<th>Number</th>
@@ -26,24 +26,137 @@
 			</tbody>
 		</table>
 
-		<div class="col-sm-2">
-			<button ng-click="editLearning(learningApp._id)" class="btn">Edit Application</button>
+		<div class="panel panel-default" ng-if='!downloadUrl'>
+		  <div class="panel-body">
+				<div class="row">
+					<div class="col-sm-2">
+						<button ng-click="editLearning(learningApp._id)" class="btn">Edit Application</button>
+					</div>
+					<div class="col-sm-2">
+						<button ng-click="exportLearning(learningApp._id)" class="btn">Produce Application</button>
+					</div>
+					<div class="col-sm-2">
+						<button ng-click="deleteLearning(learningApp._id)" class="btn">Delete</button>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div  ng-if='!downloadUrl' class="col-sm-2">
-			<button ng-click="exportLearning(learningApp._id)" class="btn">Produce Skill</button>
-		</div>
-		<div class="col-sm-2">
-			<button ng-click="deleteLearning(learningApp._id)" class="btn">Delete</button>
-		</div>
-		<div ng-if='downloadUrl' class="col-sm-4">
-			<a ng-href="{{downloadUrl}}" download="{{downloadUrlId}}">Download Your Skill</a>
-		</div>
+
+		<div class="row" ng-if='downloadUrl'>
+			<div class="col-sm-12" >
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<span>Please go to the <a href='#/guide' target="_blank">Guide</a> and follow the steps with the information below.<span>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">Learning Skill Zip Download</div>
+						<div class="panel-body">
+							<div class="col-sm-4">
+								<a ng-href="{{downloadUrl}}" download="{{downloadUrlId}}">Download Your Skill</a>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">Learning Intent Utterances</div>
+						<div class="panel-body">
+							<pre>
+{
+	"intents": [
+		{
+			"intent": "AnswerIntent"
+		},
+		{
+			"intent": "AMAZON.HelpIntent"
+		},
+		{
+			"intent": "AMAZON.RepeatIntent"
+		},
+		{
+			"intent": "AMAZON.StopIntent"
+		},
+		{
+			"intent": "AMAZON.YesIntent"
+		},
+		{
+			"intent": "AMAZON.NoIntent"
+		},
+		{
+			"intent": "AMAZON.StartOverIntent"
+		},
+		{
+			"intent": "AMAZON.CancelIntent"
+		},
+		{
+			"intent": "MoreInformationIntent"
+		},
+		{
+			"intent": "HintIntent"
+		}
+	]
+}
+              </pre>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">Learning Intent Utterances</div>
+						<div class="panel-body">
+							<pre>
+AnswerIntent Answer
+AnswerIntent Give me the answer
+AnswerIntent Answer please
+AnswerIntent Please give me the answer
+
+AMAZON.HelpIntent Help
+AMAZON.HelpIntent Help please
+AMAZON.HelpIntent Please help
+
+AMAZON.RepeatIntent Repeat
+AMAZON.RepeatIntent Repeat please
+AMAZON.RepeatIntent Repeat the question
+AMAZON.RepeatIntent Repeat the question please
+AMAZON.RepeatIntent Please repeat the question
+AMAZON.RepeatIntent Repeat that
+AMAZON.RepeatIntent Repeat that please
+AMAZON.RepeatIntent Please repeat
+AMAZON.RepeatIntent Please repeat that
+
+AMAZON.StopIntent Stop
+AMAZON.StopIntent I'm done
+AMAZON.StopIntent Goodbye
+AMAZON.StopIntent Done
+
+AMAZON.YesIntent Yes
+AMAZON.YesIntent Yeah
+AMAZON.YesIntent Affirmative
+
+AMAZON.NoIntent No
+AMAZON.NoIntent Nah
+
+HintIntent Hint
+HintIntent Hint please
+HintIntent I'd like a hint
+HintIntent I need a hint
+HintIntent I want a hint
+HintIntent I would like a hint
+
+MoreInformationIntent more
+MoreInformationIntent Please tell me more
+MoreInformationIntent Tell me more
+MoreInformationIntent I need more information
+MoreInformationIntent Please give me more information
+MoreInformationIntent Give me more information
+						</pre>
+						</div>
+					</div>
+				</div>
+			</div>
 	</div>
 
 	<div ng-if="typeOfInstruction">
 		<h2>{{instructionApp.appName}}</h2>
 		<h3>{{instructionApp.appDescription}}</h3>
-		<table class="table">
+		<table class="table" ng-if='!downloadUrl'>
 		<thead>
 			<tr>
 				<th>Step</th>
@@ -64,17 +177,244 @@
 		</tbody>
 		</table>
 
-		<div class="col-sm-2">
-			<button ng-click="editInstruction(instructionApp._id)" class="btn">Edit Application</button>
+		<div class="panel panel-default" ng-if='!downloadUrl'>
+		  <div class="panel-body">
+				<div class="row">
+					<div class="col-sm-2">
+						<button ng-click="editInstruction(instructionApp._id)" class="btn">Edit Skill</button>
+					</div>
+					<div class="col-sm-2">
+						<button ng-click="exportInstruction(instructionApp._id)" class="btn">Produce Skill</button>
+					</div>
+					<div class="col-sm-2">
+						<button ng-click="deleteInstruction(instructionApp._id)" class="btn">Delete</button>
+					</div>
+			</div>
 		</div>
-		<div ng-if='!downloadUrl' class="col-sm-2">
-			<button ng-click="exportInstruction(instructionApp._id)" class="btn">Produce Skill</button>
+	</div>
+
+	<div class="row" ng-if='downloadUrl'>
+		<div class="col-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<span>Please go to the <a href='#/guide' target="_blank">Guide</a> and follow the steps with the information below.<span>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">Instruction Skill Zip Download</div>
+					<div class="panel-body">
+						<div class="col-sm-4">
+							<a ng-href="{{downloadUrl}}" download="{{downloadUrlId}}">Download Your Skill</a>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">Instruction Intent Utterances</div>
+					<div class="panel-body">
+						<pre>
+{
+	"intents": [
+		{
+			"intent": "AMAZON.NextIntent"
+		},
+		{
+			"intent": "AMAZON.HelpIntent"
+		},
+		{
+			"intent": "AMAZON.RepeatIntent"
+		},
+		{
+			"intent": "AMAZON.StopIntent"
+		},
+		{
+			"intent": "AMAZON.YesIntent"
+		},
+		{
+			"intent": "AMAZON.NoIntent"
+		},
+		{
+			"intent": "AMAZON.CancelIntent"
+		},
+		{
+			"intent": "MoreInformationIntent"
+		}
+	]
+}
+            </pre>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">Instruction Intent Utterances</div>
+					<div class="panel-body">
+						<pre>
+AMAZON.NextIntent Next
+AMAZON.NextIntent Next step
+AMAZON.NextIntent Next please
+AMAZON.NextIntent Next step please
+AMAZON.NextIntent Let's move on
+
+AMAZON.HelpIntent Help
+AMAZON.HelpIntent Help please
+AMAZON.HelpIntent Please help
+
+AMAZON.RepeatIntent Repeat
+AMAZON.RepeatIntent Repeat please
+AMAZON.RepeatIntent Repeat that
+AMAZON.RepeatIntent Repeat that please
+AMAZON.RepeatIntent Please repeat
+AMAZON.RepeatIntent Please repeat that
+AMAZON.RepeatIntent Repeat the step please
+AMAZON.RepeatIntent Repeat that information
+
+AMAZON.StopIntent Stop
+AMAZON.StopIntent I'm done
+AMAZON.StopIntent Goodbye
+AMAZON.StopIntent Done
+
+AMAZON.YesIntent Yes
+AMAZON.YesIntent Yeah
+AMAZON.YesIntent Affirmative
+
+AMAZON.NoIntent No
+AMAZON.NoIntent Nah
+
+MoreInformationIntent Please tell me more
+MoreInformationIntent Tell me more
+MoreInformationIntent I need more information
+MoreInformationIntent Please give me more information
+MoreInformationIntent Give me more information
+					</pre>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="col-sm-2">
-			<button ng-click="deleteInstruction(instructionApp._id)" class="btn">Delete</button>
+	</div>
+
+	<div ng-if="typeOfTasks">
+		<h2>{{tasksApp.appName}}</h2>
+		<h3>{{tasksApp.appDescription}}</h3>
+		<table class="table" ng-if='!downloadUrl'>
+		<thead>
+			<tr>
+				<th>Activity</th>
+				<th>Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="activity in tasksApp.activities" >
+				<td class="hand-text">{{activity.name}}</td>
+				<td class="hand-text">{{tasksApp.date | date:'medium'}}</td>
+			</tr>
+		</tbody>
+		</table>
+
+		<div class="panel panel-default" ng-if='!downloadUrl'>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-2">
+						<button ng-click="editTasks(tasksApp._id)" class="btn">Edit Skill</button>
+					</div>
+					<div class="col-sm-2">
+						<button ng-click="exportTasks(tasksApp._id)" class="btn">Produce Skill</button>
+					</div>
+					<div class="col-sm-2">
+						<button ng-click="deleteTasks(tasksApp._id)" class="btn">Delete</button>
+					</div>
+			</div>
 		</div>
-		<div ng-if='downloadUrl' class="col-sm-4">
-			<a ng-href="{{downloadUrl}}" download="{{downloadUrlId}}">Download Your Skill</a>
+	</div>
+
+	<div class="row" ng-if='downloadUrl'>
+		<div class="col-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<span>Please go to the <a href='#/guide' target="_blank">Guide</a> and follow the steps with the information below.<span>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">Tasks Skill Zip Download</div>
+					<div class="panel-body">
+						<div class="col-sm-4">
+							<a ng-href="{{downloadUrl}}" download="{{downloadUrlId}}">Download Your Skill</a>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">Tasks Intent Utterances</div>
+					<div class="panel-body">
+						<pre>
+{
+	"intents": [
+		{
+			"intent": "AMAZON.NextIntent"
+		},
+		{
+			"intent": "AMAZON.HelpIntent"
+		},
+		{
+			"intent": "AMAZON.RepeatIntent"
+		},
+		{
+			"intent": "AMAZON.StopIntent"
+		},
+		{
+			"intent": "AMAZON.YesIntent"
+		},
+		{
+			"intent": "AMAZON.NoIntent"
+		},
+		{
+			"intent": "MoreInformationIntent"
+		}
+	]
+}
+						</pre>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">Tasks Intent Utterances</div>
+					<div class="panel-body">
+						<pre>
+AMAZON.NextIntent Next
+AMAZON.NextIntent Next step
+AMAZON.NextIntent Next please
+AMAZON.NextIntent Next step please
+AMAZON.NextIntent Let's move on
+
+AMAZON.HelpIntent Help
+AMAZON.HelpIntent Help please
+AMAZON.HelpIntent Please help
+
+AMAZON.RepeatIntent Repeat
+AMAZON.RepeatIntent Repeat please
+AMAZON.RepeatIntent Repeat that
+AMAZON.RepeatIntent Repeat that please
+AMAZON.RepeatIntent Please repeat
+AMAZON.RepeatIntent Please repeat that
+AMAZON.RepeatIntent Repeat the step please
+AMAZON.RepeatIntent Repeat that information
+
+AMAZON.StopIntent Stop
+AMAZON.StopIntent I'm done
+AMAZON.StopIntent Goodbye
+AMAZON.StopIntent Done
+
+AMAZON.YesIntent Yes
+AMAZON.YesIntent Yeah
+AMAZON.YesIntent Affirmative
+
+AMAZON.NoIntent No
+AMAZON.NoIntent Nah
+
+MoreInformationIntent Please tell me more
+MoreInformationIntent Tell me more
+MoreInformationIntent I need more information
+MoreInformationIntent Please give me more information
+MoreInformationIntent Give me more information
+					</pre>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
